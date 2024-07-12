@@ -1,0 +1,163 @@
+body {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.picture-grid {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 0.2rem;
+    min-width: 10em;
+    height: fit-content;
+    box-sizing: border-box;
+}
+
+.img-container {
+    height: 9rem;
+    width: 12rem;
+    border: 1px solid black;
+    /* box-sizing: border-box; */
+    position: relative;
+}
+
+.grid-img {
+    height: 9rem;
+    width: 12rem;
+    object-fit: cover;
+    /* border: 1px solid rgb(29, 29, 29); */
+    box-sizing: border-box;
+    cursor: pointer;
+    opacity: 0%;
+    transition: 200ms;
+}
+
+.grid-img:hover {
+    filter: brightness(110%);
+}
+
+.arrow {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: lightgrey;
+    margin: 0 0.3rem;
+    box-sizing: border-box;
+}
+
+/* .arrow:hover {
+    filter: opacity(50%);
+} */
+
+/* .arrow:hover img {
+    opacity: 50%;
+} */
+
+h1 {
+    display: block;
+}
+
+.pagenumber {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.main {
+    display: flex;
+    align-self: center;
+}
+
+.page {
+    display: block;
+}
+
+.pagebtn {
+    height: 20px;
+    border-radius: 50%;
+    width: 20px;
+    border: none;
+    background-color: grey;
+    color: white;
+    font-size: 0.6rem;
+    text-align: center;
+    cursor: pointer;
+    margin: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.current-page {
+    background-color: blue;
+}
+
+/* ------------------media queries ---------------*/
+
+@media screen and (max-width:425px) {
+
+    .main {
+        position: relative;
+    }
+
+    .picture-grid {
+        display: grid;
+        grid-template-columns: repeat(1, auto);
+        gap: 3px;
+        width: min-content;
+        height: fit-content;
+        box-sizing: border-box;
+    }
+
+    .img-container,
+    .grid-img {
+        height: 13rem;
+        width: 15rem;
+    }
+
+    .arrow {
+        position: sticky;
+        align-self: baseline;
+        top: 0%;
+        right: 0%;
+        height: 100dvh;
+    }
+
+    .arrow img {
+        width: 4em;
+    }
+
+}
+
+@media screen and (min-width:426px) and (max-width:720px) {
+
+    .main {
+        position: relative;
+    }
+
+    .picture-grid {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        gap: 3px;
+        width: auto;
+        height: fit-content;
+        box-sizing: border-box;
+
+    }
+
+    .arrow {
+        position: sticky;
+        align-self: baseline;
+        top: 0%;
+        right: 0%;
+        height: 100dvh;
+    }
+
+    .arrow img {
+        width: 4em;
+    }
+
+}
