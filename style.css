@@ -92,6 +92,19 @@ h1 {
     /* visibility: hidden; */
 }
 
+.submit-btn {
+    background-color: grey;
+    color: white;
+    border: none;
+    padding: 0.8em;
+    border-radius: 1em;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: lightgrey;
+}
+
 .pagebtn:hover {
     background-color: lightgray;
 }
