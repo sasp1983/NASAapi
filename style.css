@@ -58,7 +58,7 @@ h1 {
     display: block;
 }
 
-.pagenumber {
+.pagenumber-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -89,10 +89,30 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    /* visibility: hidden; */
+}
+
+.pagebtn:hover {
+    background-color: lightgray;
+}
+
+.pagebtn:active {
+    background-color: darkgray;
 }
 
 .current-page {
     background-color: blue;
+}
+
+#sol-date {
+    width: 10rem;
+    align-self: center;
+    margin: 0.6rem;
+    padding: 0.5rem;
+}
+
+.hidden {
+    display: none;
 }
 
 /* ------------------media queries ---------------*/
