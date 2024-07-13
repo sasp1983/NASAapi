@@ -15,81 +15,6 @@ let buttons = document.querySelectorAll('.pagebtn');
 let solDateInput = document.getElementById('sol-date');
 let solDate = 1000;
 
-async function fetchPageCount() {
-    try {
-        const responseNoPages = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${solDate}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
-
-        if (!responseNoPages.ok) {
-            throw new Error("ADJAS")
-        }
-
-        const dataNoPages = await responseNoPages.json();
-        // console.log(dataNoPages);
-        console.log('array length:', dataNoPages.photos.length);
-        let pageCount = Math.ceil(dataNoPages.photos.length / 25);
-        console.log('pageCount:', pageCount);
-
-        arrowRightBtn.addEventListener('click', function () {
-            // fetchPageCount();
-            if (pageNumber < pageCount) {
-                pageNumber++;
-                fetchImages();
-                // page.innerText = `page: ${pageNumber}`
-                window.scroll({ top: 0, behavior: 'smooth' });
-            }
-            console.log(pageCount)
-        });
-
-        arrowLeftBtn.addEventListener('click', function () {
-            if (pageNumber >= 2) {
-                pageNumber--;
-                fetchImages();
-                // page.innerText = `page: ${pageNumber}`
-                window.scroll({ top: 0, behavior: 'smooth' });
-            }
-        });
-
-        //make buttons go to page number
-        buttons.forEach(pagebtn => {
-            pagebtn.addEventListener('click', function (e) {
-                pageNumber = pagebtn.id;
-
-                // page.innerText = `page: ${pageNumber}`
-                fetchImages();
-            })
-        })
-
-        //hide page buttons to match the page count
-        function hideButtons() {
-            if (pageBtnContainer.childElementCount > pageCount) {
-                buttons.forEach(p => {
-                    if (p.innerText > pageCount) {
-                        p.classList.add('hidden');
-                    } else {
-                        p.classList.remove('hidden');
-                        // p.style.visibility = 'visible'
-                    }
-                });
-            }
-        }
-        hideButtons();
-
-        // function createButtons() {
-        //     for (let p = 0; p < pageCount; p++) {
-        //         let bu = document.createElement('button');
-        //         bu.classList.add('pagebtn');
-        //         pageBtnContainer.appendChild(bu);
-        //         bu.innerText = `${p + 1}`;
-        //         bu.id = p + 1;
-        //         console.log(p);
-        //     }
-        // }
-        // createButtons();
-    } catch (error) {
-        console.log(error)
-    }
-}
-
 async function fetchImages() {
     try {
         const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
@@ -122,12 +47,71 @@ async function fetchImages() {
                 })
             }
             highlightButtons();
+
+            function hideImages() {
+                imgContainers.forEach(c => {
+                    let index = Array.from(pictureGrid.children).indexOf(c);
+                    if (index + 1 > imgArray.length) {
+                        c.classList.add('hidden');
+                    } else {
+                        c.classList.remove('hidden');
+                    }
+                    // console.log(index)
+                });
+            }
+            hideImages();
+            // console.log('picturegrid children:', pictureGrid.childElementCount, '-', 'img array count:', imgArray.length)
         }
 
-        function hideImages(img) {
-            if (pictureGrid.childElementCount > imgArray.length) {
-                imgContainers.forEach(c => {
-                    if (c.value > pageCount) {
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+async function fetchPageCount() {
+    try {
+        const responseNoPages = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${solDate}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
+
+        if (!responseNoPages.ok) {
+            throw new Error("ADJAS")
+        }
+
+        const dataNoPages = await responseNoPages.json();
+        // console.log(dataNoPages);
+        // console.log('array length:', dataNoPages.photos.length);
+        let pageCount = Math.ceil(dataNoPages.photos.length / 25);
+        // console.log('pageCount:', pageCount);
+
+        arrowRightBtn.addEventListener('click', function () {
+            // if (pageNumber < pageCount) {
+            pageNumber++;
+            fetchImages();
+            window.scroll({ top: 0, behavior: 'smooth' });
+            // }
+            // console.log(pageCount)
+        });
+
+        arrowLeftBtn.addEventListener('click', function () {
+            if (pageNumber >= 2) {
+                pageNumber--;
+                fetchImages();
+                window.scroll({ top: 0, behavior: 'smooth' });
+            }
+        });
+
+        //make buttons go to page number
+        buttons.forEach(pagebtn => {
+            pagebtn.addEventListener('click', function () {
+                pageNumber = pagebtn.id;
+                fetchImages();
+            })
+        })
+
+        //hide page buttons to match the page count
+        function hideButtons() {
+            if (pageBtnContainer.childElementCount > pageCount) {
+                buttons.forEach(p => {
+                    if (p.innerText > pageCount) {
                         p.classList.add('hidden');
                     } else {
                         p.classList.remove('hidden');
@@ -136,58 +120,49 @@ async function fetchImages() {
                 });
             }
         }
+        hideButtons();
+
+        // function createButtons() {
+        //     for (let p = 0; p < pageCount; p++) {
+        //         let bu = document.createElement('button');
+        //         bu.classList.add('pagebtn');
+        //         pageBtnContainer.appendChild(bu);
+        //         bu.innerText = `${p + 1}`;
+        //         bu.id = p + 1;
+        //         console.log(p);
+        //     }
+        // }
+        // createButtons();
+
+
+        // console.log('pg:', pictureGrid.childElementCount, 'img:', imgArray.length)
 
     } catch (error) {
-        console.error(error)
+        console.log(error)
     }
-    // fetchPageCount();
-    console.log(images)
 }
+
 
 fetchImages();
 fetchPageCount();
 
-// page.innerText = `page: ${pageNumber}`
-
-
-// arrowRightBtn.addEventListener('click', function () {
-//     fetchPageCount();
-//     if (pageNumber < pageCount) {
-//         pageNumber++;
-//         fetchImages();
-//         // page.innerText = `page: ${pageNumber}`
-//         window.scroll({ top: 0, behavior: 'smooth' });
-//     }
-// });
-
-// arrowLeftBtn.addEventListener('click', function () {
-//     if (pageNumber >= 2) {
-//         pageNumber--;
-//         fetchImages();
-//         // page.innerText = `page: ${pageNumber}`
-//         window.scroll({ top: 0, behavior: 'smooth' });
-//     }
-// });
-
-
 //make buttons go to page number
-buttons.forEach(pagebtn => {
-    pagebtn.addEventListener('click', function (e) {
-        pageNumber = pagebtn.id;
+// buttons.forEach(pagebtn => {
+//     pagebtn.addEventListener('click', function () {
+//         pageNumber = pagebtn.id;
+//         // fetchImages();
+//     })
+// })
 
-        // page.innerText = `page: ${pageNumber}`
-        fetchImages();
-    })
-})
 
 solDateInput.addEventListener('change', function (e) {
     e.preventDefault;
-    console.log('sol date:', solDateInput.value);
+    pageNumber = 1;
     let solValue = solDateInput.value;
+    console.log('sol date:', solDateInput.value);
     solDate = solValue;
     fetchImages();
     fetchPageCount();
-    pageNumber = 1;
 })
 
 

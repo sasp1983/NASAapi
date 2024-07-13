@@ -46,6 +46,10 @@ body {
     box-sizing: border-box;
 }
 
+.arrow:active {
+    background-color: grey;
+}
+
 /* .arrow:hover {
     filter: opacity(50%);
 } */
@@ -102,12 +106,20 @@ h1 {
     margin: 0.5em;
 }
 
-.submit-btn:hover {
-    background-color: lightgrey;
+@media (hover: hover) {
+    .submit-btn:hover {
+        background-color: lightgrey;
+    }
 }
 
-.pagebtn:hover {
-    background-color: lightgray;
+.submit-btn:active {
+    background-color: darkgray;
+}
+
+@media (hover: hover) {
+    .pagebtn:hover {
+        background-color: lightgray;
+    }
 }
 
 .pagebtn:active {
