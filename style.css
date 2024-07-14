@@ -120,7 +120,7 @@ h1 {
 .pagebtn-container {
     flex-grow: 1;
     min-width: 50px;
-    max-width: auto;
+    max-width: 800px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

@@ -166,20 +166,28 @@ async function fetchPageCount() {
 
         //hide page buttons to match the page count
         function hideButtons() {
-            // if (pageBtnContainer.childElementCount > pageCount) {
             buttons.forEach(p => {
                 if (p.innerText > pageCount) {
                     p.classList.add('hidden');
                 } else {
                     p.classList.remove('hidden');
-                    // overflowButton.classList.remove('hidden')
-                    // p.style.visibility = 'visible'
                 }
 
+                //hide 'expand page buttons' button if its number is low enough
+                let pb = Array.from(pageBtnContainer.children);
+                // console.log(pb[50].classList)
+                if (pb[50].classList.contains('hidden')) {
+                    overflowButton.classList.add('hidden');
+                } else {
+                    overflowButton.classList.remove('hidden');
+                }
+                // console.log(pb.indexOf(p));
+                // console.log(pb[50])
             })
             console.log('buttons: ', pageBtnContainer.childElementCount, 'pages: ', pageCount)
         }
         hideButtons();
+
 
         // function hideOverflowButton() {
         //     if (pageBtnContainer.children.classList.includes('pagebtn hidden') > 50) {
