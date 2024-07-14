@@ -176,10 +176,12 @@ async function fetchPageCount() {
                 //hide 'expand page buttons' button if its number is low enough
                 let pb = Array.from(pageBtnContainer.children);
                 // console.log(pb[50].classList)
-                if (pb[30].classList.contains('hidden')) {
+                if (pb[50].classList.contains('hidden')) {
                     overflowButton.classList.add('hidden');
+                    pageBtnContainer.classList.add('height-auto')
                 } else {
                     overflowButton.classList.remove('hidden');
+                    pageBtnContainer.classList.remove('height-auto')
                 }
                 // console.log(pb.indexOf(p));
                 // console.log(pb[50])
@@ -217,13 +219,13 @@ async function fetchPageCount() {
             e.stopImmediatePropagation();
             pageNumber = 1;
             let solValue = solDateInput.value;
-            console.log('sol date:', solDateInput.value);
             solDate = solValue;
+            console.log('sol date:', solDateInput.value);
+            solDateInput.value = '';
             fetchImages();
             fetchPageCount();
             console.log('imgArray:', imgArray.length);
             solDateInput.setAttribute('placeholder', `${solDate}`);
-            solDateInput.setAttribute('value', `${solDate}`);
             console.dir(e.target)
             pageNumber = 1;
             pageBtnContainer.classList.add('height-auto');
@@ -234,11 +236,11 @@ async function fetchPageCount() {
             solDate++;
             console.log(e.target.value)
             solDateInput.setAttribute('placeholder'.replace(), `${solDate}`);
-            solDateInput.value = solDate;
+            solDateInput.value = ``;
             fetchImages();
             fetchPageCount();
             e.stopImmediatePropagation();
-            pageBtnContainer.classList.add('height-auto');
+            // pageBtnContainer.classList.add('height-auto');
             console.log(solDate);
             console.dir(solDateInput);
             pageNumber = 1;
@@ -249,7 +251,7 @@ async function fetchPageCount() {
             if (!solDate <= 0) {
                 solDate--;
                 solDateInput.setAttribute('placeholder'.replace(), `${solDate}`);
-                solDateInput.value = `${solDate}`;
+                solDateInput.value = ``;
                 fetchImages();
                 fetchPageCount();
                 e.stopImmediatePropagation();
