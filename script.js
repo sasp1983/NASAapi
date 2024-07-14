@@ -16,7 +16,8 @@ let images = document.querySelectorAll('.grid-img');
 let pageBtnContainer = document.querySelector('.pagebtn-container')
 let buttons = document.querySelectorAll('.pagebtn');
 let solDateInput = document.getElementById('sol-date');
-let solDate = 345;
+let solDate = 1000;
+solDateInput.setAttribute('placeholder', `${solDate}`)
 
 async function fetchImages() {
     try {
@@ -201,7 +202,9 @@ solDateInput.addEventListener('change', function (e) {
     fetchImages();
     fetchPageCount();
     console.log('imgArray:', imgArray.length);
+    solDateInput.setAttribute('placeholder', `${solDate}`);
 })
+
 
 
 
