@@ -18,11 +18,14 @@ let buttons = document.querySelectorAll('.pagebtn');
 let solDateInput = document.getElementById('sol-date');
 let solDate = 1000;
 solDateInput.setAttribute('placeholder', `${solDate}`)
+let solDateWarning = document.querySelector('.no-imgs');
 
 async function fetchImages() {
     try {
-        const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
+        const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}`);
 
+
+        // `https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`
         // api.nasa.gov/mars-photos
         // mars-photos.herokuapp.com
         if (!response.ok) {
@@ -31,9 +34,21 @@ async function fetchImages() {
         const data = await response.json();
 
         let imgArray = data.photos;
-        console.log('imgArray:', imgArray.length);
+        console.log('imgArray length:', imgArray.length);
+
         // console.log(response)
         // console.log(data)
+
+        //if no images found on sol date
+        if (imgArray.length === 0) {
+            solDateWarning.classList.remove('hidden');
+            pictureGrid.classList.add('hidden')
+        } else {
+            solDateWarning.classList.add('hidden');
+            pictureGrid.classList.remove('hidden')
+        }
+
+        //main loop to fetch images
         for (i = 0; i < imgArray.length; i++) {
             let images = document.querySelectorAll('.grid-img');
             images[i].src = imgArray[i].img_src;
@@ -55,6 +70,7 @@ async function fetchImages() {
             }
             highlightButtons();
 
+            //hide image containers of non-fetched images when at last page 
             function hideImages() {
                 imgContainers.forEach(c => {
                     let index = Array.from(pictureGrid.children).indexOf(c);
@@ -67,7 +83,8 @@ async function fetchImages() {
                 });
             }
             hideImages();
-            // console.log('picturegrid children:', pictureGrid.childElementCount, '-', 'img array count:', imgArray.length)
+
+
         }
 
 
@@ -90,6 +107,7 @@ async function fetchPageCount() {
         window.pageCount = Math.ceil(dataNoPages.photos.length / 25);
         console.log('pageCount:', window.pageCount);
 
+        //page forward button 
         arrowRightBtn.addEventListener('click', function (e) {
             console.log('pageNumber', pageNumber);
             e.stopImmediatePropagation();
@@ -98,13 +116,11 @@ async function fetchPageCount() {
                 console.log('pageCount arrowRightBtn', pageCount);
                 pageNumber++;
                 fetchImages();
-                fetchPageCount();
                 window.scroll({ top: 0, behavior: 'smooth' });
             }
         });
 
-
-
+        //page back button
         arrowLeftBtn.addEventListener('click', function (e) {
             e.stopImmediatePropagation();
             if (pageNumber >= 2) {
@@ -114,6 +130,7 @@ async function fetchPageCount() {
             }
         });
 
+        //page forward button  top
         arrowTopRightBtn.addEventListener('click', function (e) {
             e.stopImmediatePropagation();
             console.log('pageCount arrowTopRightBtn', pageCount)
@@ -125,6 +142,7 @@ async function fetchPageCount() {
             // console.log(pageCount)
         });
 
+        //page back button top
         arrowTopLeftBtn.addEventListener('click', function (e) {
             e.stopImmediatePropagation();
             console.log('pageCount arrowLeftBtn', pageCount)
@@ -171,8 +189,19 @@ async function fetchPageCount() {
         // }
         // createButtons();
 
-
-        // console.log('pg:', pictureGrid.childElementCount, 'img:', imgArray.length)
+        // input dialog for Sol date
+        solDateInput.addEventListener('change', function (e) {
+            e.preventDefault;
+            e.stopImmediatePropagation();
+            pageNumber = 1;
+            let solValue = solDateInput.value;
+            console.log('sol date:', solDateInput.value);
+            solDate = solValue;
+            fetchImages();
+            fetchPageCount();
+            console.log('imgArray:', imgArray.length);
+            solDateInput.setAttribute('placeholder', `${solDate}`);
+        })
 
     } catch (error) {
         console.log(error)
@@ -192,18 +221,7 @@ fetchPageCount();
 // })
 
 
-solDateInput.addEventListener('change', function (e) {
-    e.preventDefault;
-    e.stopImmediatePropagation();
-    pageNumber = 1;
-    let solValue = solDateInput.value;
-    console.log('sol date:', solDateInput.value);
-    solDate = solValue;
-    fetchImages();
-    fetchPageCount();
-    console.log('imgArray:', imgArray.length);
-    solDateInput.setAttribute('placeholder', `${solDate}`);
-})
+
 
 
 
