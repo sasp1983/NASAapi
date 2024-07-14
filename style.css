@@ -26,6 +26,7 @@ body {
     min-width: 10em;
     height: fit-content;
     box-sizing: border-box;
+    margin-bottom: 2em;
 }
 
 .img-container {
@@ -126,6 +127,7 @@ h1 {
     justify-content: center;
     transition: 200ms;
     height: 5.8em;
+    /* height: auto; */
     overflow: hidden;
 }
 
