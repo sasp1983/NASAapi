@@ -320,6 +320,10 @@ h1 {
         width: 3em;
         height: 3em;
     }
+
+    .hidden {
+        display: none;
+    }
 }
 
 @media screen and (min-width:577px) and (max-width:900px) {
@@ -335,7 +339,6 @@ h1 {
         width: auto;
         height: fit-content;
         box-sizing: border-box;
-
     }
 
     .arrow {
@@ -350,4 +353,38 @@ h1 {
         /* width: 4em; */
     }
 
+    .hidden {
+        display: none;
+    }
+
+}
+
+@media screen and (min-width:900px) {
+    .picture-grid {
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        gap: 3px;
+        width: auto;
+        height: fit-content;
+        box-sizing: border-box;
+    }
+
+    .hidden {
+        display: none;
+    }
+}
+
+@media screen and (min-width:1280px) {
+    .picture-grid {
+        display: grid;
+        grid-template-columns: repeat(4, auto);
+        gap: 3px;
+        width: auto;
+        height: fit-content;
+        box-sizing: border-box;
+    }
+
+    .hidden {
+        display: none;
+    }
 }
