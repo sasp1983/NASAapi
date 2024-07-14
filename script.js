@@ -4,6 +4,8 @@ let arrowLeftBtn = document.querySelector('.arrow-left');
 let arrowRightBtn = document.querySelector('.arrow-right');
 let arrowTopLeftBtn = document.querySelector('.arrow-top-left');
 let arrowTopRightBtn = document.querySelector('.arrow-top-right');
+let solBtnLeft = document.querySelector('.solbtn-left');
+let solBtnRight = document.querySelector('.solbtn-right');
 
 let i = 0;
 
@@ -11,12 +13,11 @@ let imgArray = []
 let pageNumber = 1;
 let pictureGrid = document.querySelector('.picture-grid');
 let imgContainers = document.querySelectorAll('.img-container');
-// let page = document.querySelector('.page');
 let images = document.querySelectorAll('.grid-img');
 let pageBtnContainer = document.querySelector('.pagebtn-container')
 let buttons = document.querySelectorAll('.pagebtn');
 let solDateInput = document.getElementById('sol-date');
-let solDate = 1000;
+let solDate = 0;
 solDateInput.setAttribute('placeholder', `${solDate}`)
 let solDateWarning = document.querySelector('.no-imgs');
 
@@ -86,7 +87,7 @@ async function fetchImages() {
 
 
         }
-
+        solDateInput.setAttribute('placeholder', `${solDate}`);
 
     } catch (error) {
         console.error(error)
@@ -102,7 +103,7 @@ async function fetchPageCount() {
         }
 
         const dataNoPages = await responseNoPages.json();
-        // console.log(dataNoPages);
+        console.log(dataNoPages);
         // console.log('array length:', dataNoPages.photos.length);
         window.pageCount = Math.ceil(dataNoPages.photos.length / 25);
         console.log('pageCount:', window.pageCount);
@@ -165,16 +166,17 @@ async function fetchPageCount() {
 
         //hide page buttons to match the page count
         function hideButtons() {
-            if (pageBtnContainer.childElementCount > pageCount) {
-                buttons.forEach(p => {
-                    if (p.innerText > pageCount) {
-                        p.classList.add('hidden');
-                    } else {
-                        p.classList.remove('hidden');
-                        // p.style.visibility = 'visible'
-                    }
-                });
-            }
+            // if (pageBtnContainer.childElementCount > pageCount) {
+            buttons.forEach(p => {
+                if (p.innerText > pageCount) {
+                    p.classList.add('hidden');
+                } else {
+                    p.classList.remove('hidden');
+                    // p.style.visibility = 'visible'
+                }
+                // });
+            })
+            console.log('buttons: ', pageBtnContainer.childElementCount, 'pages: ', pageCount)
         }
         hideButtons();
         // function createButtons() {
@@ -201,6 +203,20 @@ async function fetchPageCount() {
             fetchPageCount();
             console.log('imgArray:', imgArray.length);
             solDateInput.setAttribute('placeholder', `${solDate}`);
+            solDateInput.setAttribute('value', `${solDate}`);
+            console.dir(e.target)
+        })
+
+        solBtnLeft.addEventListener('click', function (e) {
+            e.preventDefault;
+            if (!solDate <= 0) {
+                solDate--;
+                solDateInput.setAttribute('placeholder'.replace(), `${solDate}`);
+                solDateInput.setAttribute('value'.replace(), `${solDate}`);
+                fetchImages();
+                fetchPageCount();
+                e.stopImmediatePropagation();
+            }
         })
 
     } catch (error) {
