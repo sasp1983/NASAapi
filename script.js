@@ -82,16 +82,18 @@ async function fetchPageCount() {
         let pageCount = Math.ceil(dataNoPages.photos.length / 25);
         // console.log('pageCount:', pageCount);
 
-        arrowRightBtn.addEventListener('click', function () {
-            // if (pageNumber < pageCount) {
-            pageNumber++;
-            fetchImages();
-            window.scroll({ top: 0, behavior: 'smooth' });
-            // }
+        arrowRightBtn.addEventListener('click', function (e) {
+            e.stopImmediatePropagation();
+            if (pageNumber < pageCount) {
+                pageNumber++;
+                fetchImages();
+                window.scroll({ top: 0, behavior: 'smooth' });
+            }
             // console.log(pageCount)
         });
 
-        arrowLeftBtn.addEventListener('click', function () {
+        arrowLeftBtn.addEventListener('click', function (e) {
+            e.stopImmediatePropagation();
             if (pageNumber >= 2) {
                 pageNumber--;
                 fetchImages();
@@ -157,6 +159,7 @@ fetchPageCount();
 
 solDateInput.addEventListener('change', function (e) {
     e.preventDefault;
+    e.stopImmediatePropagation();
     pageNumber = 1;
     let solValue = solDateInput.value;
     console.log('sol date:', solDateInput.value);
