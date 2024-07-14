@@ -62,7 +62,7 @@ body {
     align-items: center;
     cursor: pointer;
     /* background-color: lightgrey; */
-    margin: 3px;
+    margin: 0px 3px;
     box-sizing: border-box;
 }
 
