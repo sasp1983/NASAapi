@@ -16,11 +16,11 @@ let images = document.querySelectorAll('.grid-img');
 let pageBtnContainer = document.querySelector('.pagebtn-container')
 let buttons = document.querySelectorAll('.pagebtn');
 let solDateInput = document.getElementById('sol-date');
-let solDate = 1000;
+let solDate = 345;
 
 async function fetchImages() {
     try {
-        const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
+        const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
 
         // api.nasa.gov/mars-photos
         // mars-photos.herokuapp.com
@@ -30,16 +30,17 @@ async function fetchImages() {
         const data = await response.json();
 
         let imgArray = data.photos;
+        console.log('imgArray:', imgArray.length);
         // console.log(response)
         // console.log(data)
         for (i = 0; i < imgArray.length; i++) {
             let images = document.querySelectorAll('.grid-img');
             images[i].src = imgArray[i].img_src;
-            // console.log(i) ;     
             let imgLink = document.querySelectorAll('a');
             imgLink[i].src = imgArray[i].img_src;
             imgLink[i].href = imgArray[i].img_src;
             images[i].onload = images[i].style.opacity = '100%';
+
 
             //highlight page buttons
             highlightButtons = () => {
@@ -68,6 +69,7 @@ async function fetchImages() {
             // console.log('picturegrid children:', pictureGrid.childElementCount, '-', 'img array count:', imgArray.length)
         }
 
+
     } catch (error) {
         console.error(error)
     }
@@ -84,18 +86,23 @@ async function fetchPageCount() {
         const dataNoPages = await responseNoPages.json();
         // console.log(dataNoPages);
         // console.log('array length:', dataNoPages.photos.length);
-        let pageCount = Math.ceil(dataNoPages.photos.length / 25);
-        // console.log('pageCount:', pageCount);
+        window.pageCount = Math.ceil(dataNoPages.photos.length / 25);
+        console.log('pageCount:', window.pageCount);
 
         arrowRightBtn.addEventListener('click', function (e) {
+            console.log('pageNumber', pageNumber);
             e.stopImmediatePropagation();
+
             if (pageNumber < pageCount) {
+                console.log('pageCount arrowRightBtn', pageCount);
                 pageNumber++;
                 fetchImages();
+                fetchPageCount();
                 window.scroll({ top: 0, behavior: 'smooth' });
             }
-            // console.log(pageCount)
         });
+
+
 
         arrowLeftBtn.addEventListener('click', function (e) {
             e.stopImmediatePropagation();
@@ -108,6 +115,7 @@ async function fetchPageCount() {
 
         arrowTopRightBtn.addEventListener('click', function (e) {
             e.stopImmediatePropagation();
+            console.log('pageCount arrowTopRightBtn', pageCount)
             if (pageNumber < pageCount) {
                 pageNumber++;
                 fetchImages();
@@ -118,6 +126,7 @@ async function fetchPageCount() {
 
         arrowTopLeftBtn.addEventListener('click', function (e) {
             e.stopImmediatePropagation();
+            console.log('pageCount arrowLeftBtn', pageCount)
             if (pageNumber >= 2) {
                 pageNumber--;
                 fetchImages();
@@ -131,6 +140,7 @@ async function fetchPageCount() {
             pagebtn.addEventListener('click', function () {
                 pageNumber = pagebtn.id;
                 fetchImages();
+                fetchPageCount();
             })
         })
 
@@ -148,7 +158,6 @@ async function fetchPageCount() {
             }
         }
         hideButtons();
-
         // function createButtons() {
         //     for (let p = 0; p < pageCount; p++) {
         //         let bu = document.createElement('button');
@@ -191,8 +200,8 @@ solDateInput.addEventListener('change', function (e) {
     solDate = solValue;
     fetchImages();
     fetchPageCount();
+    console.log('imgArray:', imgArray.length);
 })
-
 
 
 
