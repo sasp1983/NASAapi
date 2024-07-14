@@ -2,6 +2,9 @@
 
 let arrowLeftBtn = document.querySelector('.arrow-left');
 let arrowRightBtn = document.querySelector('.arrow-right');
+let arrowTopLeftBtn = document.querySelector('.arrow-top-left');
+let arrowTopRightBtn = document.querySelector('.arrow-top-right');
+
 let i = 0;
 
 let imgArray = []
@@ -10,15 +13,17 @@ let pictureGrid = document.querySelector('.picture-grid');
 let imgContainers = document.querySelectorAll('.img-container');
 // let page = document.querySelector('.page');
 let images = document.querySelectorAll('.grid-img');
-let pageBtnContainer = document.querySelector('.pagenumber-container')
+let pageBtnContainer = document.querySelector('.pagebtn-container')
 let buttons = document.querySelectorAll('.pagebtn');
 let solDateInput = document.getElementById('sol-date');
 let solDate = 1000;
 
 async function fetchImages() {
     try {
-        const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
+        const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
 
+        // api.nasa.gov/mars-photos
+        // mars-photos.herokuapp.com
         if (!response.ok) {
             throw new Error("ADJAS")
         }
@@ -100,6 +105,26 @@ async function fetchPageCount() {
                 window.scroll({ top: 0, behavior: 'smooth' });
             }
         });
+
+        arrowTopRightBtn.addEventListener('click', function (e) {
+            e.stopImmediatePropagation();
+            if (pageNumber < pageCount) {
+                pageNumber++;
+                fetchImages();
+                window.scroll({ top: 0, behavior: 'smooth' });
+            }
+            // console.log(pageCount)
+        });
+
+        arrowTopLeftBtn.addEventListener('click', function (e) {
+            e.stopImmediatePropagation();
+            if (pageNumber >= 2) {
+                pageNumber--;
+                fetchImages();
+                window.scroll({ top: 0, behavior: 'smooth' });
+            }
+        });
+
 
         //make buttons go to page number
         buttons.forEach(pagebtn => {

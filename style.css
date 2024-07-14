@@ -39,11 +39,34 @@ body {
 
 .arrow {
     display: flex;
+    justify-content: center;
     align-items: center;
     cursor: pointer;
-    background-color: lightgrey;
-    margin: 0 0.3rem;
+    /* background-color: lightgrey; */
+    margin: 3px;
     box-sizing: border-box;
+}
+
+.arrow-top {
+    height: auto;
+    display: flex;
+}
+
+.arrow-top img {
+    cursor: pointer;
+    /* background-color: lightgrey; */
+    /* margin: 3px; */
+    box-sizing: border-box;
+    min-height: 20px;
+    max-height: 30px;
+}
+
+.arrow-top:active {
+    opacity: 50%;
+}
+
+.arrow img {
+    /* height: 20px; */
 }
 
 .arrow:active {
@@ -64,11 +87,27 @@ h1 {
 
 .pagenumber-container {
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
-    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+    /* flex-wrap: wrap; */
+    max-width: auto;
+    padding-left: 1em;
+    padding-right: 1em;
 }
+
+.pagebtn-container {
+    flex-grow: 1;
+    min-width: 50px;
+    max-width: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 
 .main {
     display: flex;
@@ -80,9 +119,12 @@ h1 {
 }
 
 .pagebtn {
-    height: 20px;
+    /* padding: 0.9em; */
+    min-height: 2.5em;
+    max-height: 4em;
     border-radius: 50%;
-    width: 20px;
+    min-width: 2.5em;
+    /* max-width: 3em; */
     border: none;
     background-color: grey;
     color: white;
@@ -94,6 +136,8 @@ h1 {
     justify-content: center;
     align-items: center;
     /* visibility: hidden; */
+    box-sizing: border-box;
+    user-select: none;
 }
 
 .submit-btn {
@@ -168,17 +212,23 @@ h1 {
         position: sticky;
         align-self: baseline;
         top: 0%;
-        right: 0%;
+        /* right: 0%; */
         height: 100dvh;
+        background-color: lightgrey;
     }
 
     .arrow img {
-        width: 4em;
+        width: 3.8em;
+        top: 50%;
     }
 
+    .arrow-left {
+        /* position: sticky; */
+        left: -30%;
+    }
 }
 
-@media screen and (min-width:426px) and (max-width:720px) {
+@media screen and (min-width:450px) and (max-width:720px) {
 
     .main {
         position: relative;
@@ -203,7 +253,7 @@ h1 {
     }
 
     .arrow img {
-        width: 4em;
+        /* width: 4em; */
     }
 
 }
