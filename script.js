@@ -6,6 +6,7 @@ let arrowTopLeftBtn = document.querySelector('.arrow-top-left');
 let arrowTopRightBtn = document.querySelector('.arrow-top-right');
 let solBtnLeft = document.querySelector('.solbtn-left');
 let solBtnRight = document.querySelector('.solbtn-right');
+let overflowButton = document.querySelector('.overflow-btn')
 
 let i = 0;
 
@@ -84,8 +85,6 @@ async function fetchImages() {
                 });
             }
             hideImages();
-
-
         }
         solDateInput.setAttribute('placeholder', `${solDate}`);
 
@@ -157,7 +156,8 @@ async function fetchPageCount() {
 
         //make buttons go to page number
         buttons.forEach(pagebtn => {
-            pagebtn.addEventListener('click', function () {
+            pagebtn.addEventListener('click', function (e) {
+                e.stopImmediatePropagation();
                 pageNumber = pagebtn.id;
                 fetchImages();
                 fetchPageCount();
@@ -172,13 +172,25 @@ async function fetchPageCount() {
                     p.classList.add('hidden');
                 } else {
                     p.classList.remove('hidden');
+                    // overflowButton.classList.remove('hidden')
                     // p.style.visibility = 'visible'
                 }
-                // });
+
             })
             console.log('buttons: ', pageBtnContainer.childElementCount, 'pages: ', pageCount)
         }
         hideButtons();
+
+        // function hideOverflowButton() {
+        //     if (pageBtnContainer.children.classList.includes('pagebtn hidden') > 50) {
+        //         overflowButton.classList.remove('hidden');
+        //     }
+        //     else {
+        //         // overflowButton.classList.add('hidden');
+        //     }
+        // }
+
+        // hideOverflowButton();
         // function createButtons() {
         //     for (let p = 0; p < pageCount; p++) {
         //         let bu = document.createElement('button');
@@ -205,6 +217,7 @@ async function fetchPageCount() {
             solDateInput.setAttribute('placeholder', `${solDate}`);
             solDateInput.setAttribute('value', `${solDate}`);
             console.dir(e.target)
+            pageNumber = 1;
         })
 
         solBtnLeft.addEventListener('click', function (e) {
@@ -216,8 +229,29 @@ async function fetchPageCount() {
                 fetchImages();
                 fetchPageCount();
                 e.stopImmediatePropagation();
+                pageNumber = 1;
             }
         })
+
+        solBtnRight.addEventListener('click', function (e) {
+            e.preventDefault;
+            solDate++;
+            solDateInput.setAttribute('placeholder'.replace(), `${solDate}`);
+            solDateInput.setAttribute('value'.replace(), `${solDate}`);
+            fetchImages();
+            fetchPageCount();
+            e.stopImmediatePropagation();
+        })
+
+
+        overflowButton.addEventListener('click', function (e) {
+            e.preventDefault;
+            pageBtnContainer.classList.toggle('height-auto');
+            overflowButton.textContent = overflowButton.textContent === '▼' ? '▲' : '▼';
+            console.log('clicked');
+            e.stopImmediatePropagation();
+        });
+
 
     } catch (error) {
         console.log(error)
@@ -237,6 +271,8 @@ fetchPageCount();
 // })
 
 
+
+overflowButton.innerText = '▼'
 
 
 
