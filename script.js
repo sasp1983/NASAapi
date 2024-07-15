@@ -103,6 +103,7 @@ async function fetchPageCount() {
 
         const dataNoPages = await responseNoPages.json();
         console.log(dataNoPages);
+        console.log(responseNoPages);
         // console.log('array length:', dataNoPages.photos.length);
         window.pageCount = Math.ceil(dataNoPages.photos.length / 25);
         console.log('pageCount:', window.pageCount);
@@ -176,7 +177,7 @@ async function fetchPageCount() {
                 //hide 'expand page buttons' button if its number is low enough
                 let pb = Array.from(pageBtnContainer.children);
                 // console.log(pb[50].classList)
-                if (pb[50].classList.contains('hidden')) {
+                if (pb[25].classList.contains('hidden')) {
                     overflowButton.classList.add('hidden');
                     pageBtnContainer.classList.add('height-auto')
                 } else {
@@ -215,19 +216,19 @@ async function fetchPageCount() {
 
         // input dialog for Sol date
         solDateInput.addEventListener('change', function (e) {
-            e.preventDefault;
-            e.stopImmediatePropagation();
-            pageNumber = 1;
             let solValue = solDateInput.value;
             solDate = solValue;
+            e.preventDefault;
+            // e.stopImmediatePropagation();
+            pageNumber = 1;
+            solDate = solValue;
             console.log('sol date:', solDateInput.value);
-            solDateInput.value = '';
+            // solDateInput.value = '';
             fetchImages();
             fetchPageCount();
             console.log('imgArray:', imgArray.length);
             solDateInput.setAttribute('placeholder', `${solDate}`);
-            console.dir(e.target)
-            pageNumber = 1;
+            console.dir(e.target);
             pageBtnContainer.classList.add('height-auto');
         })
 
