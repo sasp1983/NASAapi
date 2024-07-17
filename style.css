@@ -380,7 +380,7 @@ h4 {
         min-width: auto; */
         align-self: center;
         display: flex;
-        justify-content: baseline;
+        justify-content: center;
         flex-wrap: wrap;
     }
 

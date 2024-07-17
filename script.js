@@ -24,7 +24,8 @@ solDateInput.setAttribute('placeholder', `${solDate}`)
 let solDateWarning = document.querySelector('.no-imgs');
 let solInputLine = document.querySelector('.sol-input-line');
 let loadingSol = document.querySelector('.loading-sol');
-let solBtns = document.querySelector('.sol-date-btns')
+let solBtns = document.querySelector('.sol-date-btns');
+let pageNumberText = document.querySelector('.page-number-text');
 
 async function fetchImages() {
     try {
@@ -64,12 +65,8 @@ async function fetchImages() {
             imgLink[i].href = imgArray[i].img_src;
             images[i].onload = images[i].style.opacity = '100%';
 
-            function showImages() {
-                images.forEach(img => {
-                    img.classList.remove('hidden')
-                })
-            }
-            showImages();
+
+
             //highlight page buttons
             highlightButtons = () => {
                 buttons.forEach(p => {
@@ -152,6 +149,7 @@ async function fetchPageCount() {
                 fetchImages();
                 // window.scroll({ top: 0, behavior: 'smooth' });
                 hideToRefreshImages();
+
             }
             // console.log(pageCount)
         });
@@ -187,12 +185,18 @@ async function fetchPageCount() {
                     p.classList.add('hidden');
                 } else {
                     p.classList.remove('hidden');
+                    pageNumberText.classList.remove('hidden');
+                    arrowTopLeftBtn.classList.remove('hidden')
+                    arrowTopRightBtn.classList.remove('hidden')
+                    showImages();
                 }
+
+
 
                 //hide 'expand page buttons' button if its number is low enough
                 let pb = Array.from(pageBtnContainer.children);
                 // console.log(pb[50].classList)
-                if (!pb[50].classList.contains('hidden')) {
+                if (!pb[45].classList.contains('hidden')) {
                     overflowButton.classList.remove('hidden');
                     pageBtnContainer.classList.remove('height-auto')
                 } else {
@@ -214,12 +218,12 @@ async function fetchPageCount() {
 
         hideLoadingBtnAnimation()
 
-        //hide loading animation
+        //hide loading animation after load
         loadingSol.classList.add('hidden')
         //show input after loading
         solInputLine.classList.remove('hidden')
-        //buttons after loading
-        solBtns.classList.remove('hidden')
+        //show buttons after loading
+        solBtns.classList.remove('hidden');
 
         function loadingAfterSolDateInput() {
             buttons.forEach(btn => {
@@ -232,6 +236,8 @@ async function fetchPageCount() {
             solBtns.classList.add('hidden');
             solInputLine.classList.add('hidden');
             hideToRefreshImages();
+            pageNumberText.classList.add('hidden');
+
         }
 
         function hideToRefreshImages() {
@@ -290,7 +296,9 @@ async function fetchPageCount() {
             solDateInput.setAttribute('placeholder', `${solDate}`);
             console.dir(e.target);
             loadingAfterSolDateInput();
-            addNavBtnLoadingAnimation()
+            addNavBtnLoadingAnimation();
+            arrowTopLeftBtn.classList.add('hidden')
+            arrowTopRightBtn.classList.add('hidden')
         })
 
         solBtnRight.addEventListener('click', function (e) {
@@ -306,6 +314,9 @@ async function fetchPageCount() {
             pageNumber = 1;
             loadingAfterSolDateInput();
             addNavBtnLoadingAnimation();
+            arrowTopLeftBtn.classList.add('hidden')
+            arrowTopRightBtn.classList.add('hidden')
+
         })
 
         solBtnLeft.addEventListener('click', function (e) {
@@ -320,6 +331,8 @@ async function fetchPageCount() {
                 pageNumber = 1;
                 loadingAfterSolDateInput();
                 addNavBtnLoadingAnimation();
+                arrowTopLeftBtn.classList.add('hidden')
+                arrowTopRightBtn.classList.add('hidden')
             }
         })
 
@@ -340,6 +353,12 @@ async function fetchPageCount() {
 fetchImages();
 fetchPageCount();
 
+function showImages() {
+    images.forEach(img => {
+        img.classList.remove('hidden')
+    })
+}
+
 //make buttons go to page number
 // buttons.forEach(pagebtn => {
 //     pagebtn.addEventListener('click', function () {
@@ -350,7 +369,8 @@ fetchPageCount();
 
 
 
-
+pageNumberText.classList.add('hidden')
 overflowButton.innerText = '▼'
-
+arrowTopLeftBtn.classList.add('hidden')
+arrowTopRightBtn.classList.add('hidden')
 
