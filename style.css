@@ -144,6 +144,7 @@ h4 {
     /* max-width: 60%; */
     padding-left: 1em;
     padding-right: 1em;
+
 }
 
 .pagebtn-container {
@@ -154,7 +155,7 @@ h4 {
     flex-wrap: wrap;
     justify-content: center;
     transition: 200ms;
-    height: 5.8em;
+    height: 4.6em;
     /* height: auto; */
     overflow: hidden;
 }
@@ -539,5 +540,9 @@ h4 {
 
     .pagebtn {
         font-size: 0.8em;
+    }
+
+    .pagebtn-container {
+        /* height: 4.9em; */
     }
 }
