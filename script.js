@@ -19,7 +19,7 @@ let images = document.querySelectorAll('.grid-img');
 let pageBtnContainer = document.querySelector('.pagebtn-container')
 let buttons = document.querySelectorAll('.pagebtn');
 let solDateInput = document.getElementById('sol-date');
-let solDate = 100;
+let solDate = 109;
 solDateInput.setAttribute('placeholder', `${solDate}`)
 let solDateWarning = document.querySelector('.no-imgs');
 let solInputLine = document.querySelector('.sol-input-line');
@@ -47,6 +47,7 @@ async function fetchImages() {
 
         //if no images found on sol date
         if (imgArray.length === 0) {
+            fetchImages();
             solDateWarning.classList.remove('hidden');
             pictureGrid.classList.add('hidden');
         } else {

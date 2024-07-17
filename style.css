@@ -153,7 +153,7 @@ h4 {
     max-width: 800px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: baseline;
     transition: 200ms;
     height: 4.6em;
     /* height: auto; */
@@ -209,13 +209,12 @@ h4 {
 }
 
 .solbtn {
-    min-height: 2.5em;
+    min-height: 2.7em;
     max-height: 4em;
     border-radius: 50%;
-    min-width: 2.5em;
+    min-width: 2.7em;
     max-width: 2.5em;
     /* max-width: 3em; */
-    border: none;
     background-color: grey;
     color: white;
     font-size: 0.6rem;
@@ -229,7 +228,7 @@ h4 {
     box-sizing: border-box;
     user-select: none;
     align-self: center;
-    border: 1px solid white;
+    border: 2px solid white;
 }
 
 @media (hover: hover) {
@@ -285,10 +284,10 @@ h4 {
     color: white;
 }
 
-::placeholder {
+/* ::placeholder {
     color: white;
-    opacity: 1;
-}
+    opacity: 1; 
+ } */
 
 .no-imgs {
     color: red;
@@ -380,6 +379,9 @@ h4 {
         /* max-width: auto;
         min-width: auto; */
         align-self: center;
+        display: flex;
+        justify-content: baseline;
+        flex-wrap: wrap;
     }
 
     .height-auto {
