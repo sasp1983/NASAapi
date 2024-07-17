@@ -15,6 +15,28 @@
 
 <body>
     <h1>NASA "Mars" Rover images</h1>
+
+
+    <div class="sol-input-container">
+        <div class="loading-sol"></div>
+        <div class="sol-input-line hidden">
+            <label for="sol-date">Input a SOL date</label>
+            <input type="number" name="sol-date" id="sol-date" placeholder="">
+            <button class="submit-btn" id="submit-btn">Submit SOL date</button>
+        </div>
+        <div class="sol-date-btns hidden">
+            <button class="solbtn solbtn-left">
+                < </button>
+                    <span style="font-weight: bold;font-size: 0.9em;">Previous Sol date</span>
+                    <span style="width:25px"></span>
+                    <span style="font-weight: bold;font-size: 0.9em;">Next Sol date</span>
+                    <button class=" solbtn solbtn-right">>
+                    </button>
+        </div>
+        <p class="no-imgs hidden">No images found on this SOL date</p>
+    </div>
+
+
     <h4>Page Number</h4>
     <div class="pagenumber-container">
 
@@ -190,26 +212,8 @@
                 alt="">
         </div>
     </div>
-    <button class="solbtn overflow-btn hidden" id=" 200"></button>
-    <div class="sol-input-container">
-        <div class="loading-sol"></div>
-        <div class="sol-input-line hidden">
-            <label for="sol-date">Input a SOL date</label>
-            <input type="number" name="sol-date" id="sol-date" placeholder="">
-            <button class="submit-btn" id="submit-btn">Submit SOL date</button>
-        </div>
-        <div class="sol-date-btns hidden">
-            <button class="solbtn solbtn-left">
-                < </button>
-                    <span style="font-weight: bold;font-size: 0.9em;">Previous Sol date</span>
-                    <span style="width:25px"></span>
-                    <span style="font-weight: bold;font-size: 0.9em;">Next Sol date</span>
-                    <button class=" solbtn solbtn-right">>
-                    </button>
-        </div>
-        <p class="no-imgs hidden">No images found on this SOL date</p>
-    </div>
 
+    <button class="solbtn overflow-btn hidden" id=" 200"></button>
     <div class="main">
         <div class="arrow arrow-left">
             <img class="arrow-left-img" src="https://img.icons8.com/?size=100&id=40024&format=png&color=FFFFFF" alt="">

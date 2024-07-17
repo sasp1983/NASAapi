@@ -192,7 +192,7 @@ async function fetchPageCount() {
                 //hide 'expand page buttons' button if its number is low enough
                 let pb = Array.from(pageBtnContainer.children);
                 // console.log(pb[50].classList)
-                if (!pb[28].classList.contains('hidden')) {
+                if (!pb[50].classList.contains('hidden')) {
                     overflowButton.classList.remove('hidden');
                     pageBtnContainer.classList.remove('height-auto')
                 } else {
