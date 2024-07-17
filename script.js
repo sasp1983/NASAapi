@@ -7,6 +7,7 @@ let arrowTopRightBtn = document.querySelector('.arrow-top-right');
 let solBtnLeft = document.querySelector('.solbtn-left');
 let solBtnRight = document.querySelector('.solbtn-right');
 let overflowButton = document.querySelector('.overflow-btn')
+let loadingBtn = document.querySelectorAll('.loading-btn')
 
 let i = 0;
 
@@ -21,6 +22,9 @@ let solDateInput = document.getElementById('sol-date');
 let solDate = 100;
 solDateInput.setAttribute('placeholder', `${solDate}`)
 let solDateWarning = document.querySelector('.no-imgs');
+let solInputLine = document.querySelector('.sol-input-line');
+let loadingSol = document.querySelector('.loading-sol');
+let solBtns = document.querySelector('.sol-date-btns')
 
 async function fetchImages() {
     try {
@@ -59,7 +63,12 @@ async function fetchImages() {
             imgLink[i].href = imgArray[i].img_src;
             images[i].onload = images[i].style.opacity = '100%';
 
-
+            function showImages() {
+                images.forEach(img => {
+                    img.classList.remove('hidden')
+                })
+            }
+            showImages();
             //highlight page buttons
             highlightButtons = () => {
                 buttons.forEach(p => {
@@ -117,7 +126,8 @@ async function fetchPageCount() {
                 console.log('pageCount arrowRightBtn', pageCount);
                 pageNumber++;
                 fetchImages();
-                window.scroll({ top: 0, behavior: 'smooth' });
+                // window.scroll({ top: 0, behavior: 'smooth' });
+                hideToRefreshImages();
             }
         });
 
@@ -127,7 +137,8 @@ async function fetchPageCount() {
             if (pageNumber >= 2) {
                 pageNumber--;
                 fetchImages();
-                window.scroll({ top: 0, behavior: 'smooth' });
+                // window.scroll({ top: 0, behavior: 'smooth' });
+                hideToRefreshImages();
             }
         });
 
@@ -138,7 +149,8 @@ async function fetchPageCount() {
             if (pageNumber < pageCount) {
                 pageNumber++;
                 fetchImages();
-                window.scroll({ top: 0, behavior: 'smooth' });
+                // window.scroll({ top: 0, behavior: 'smooth' });
+                hideToRefreshImages();
             }
             // console.log(pageCount)
         });
@@ -150,7 +162,8 @@ async function fetchPageCount() {
             if (pageNumber >= 2) {
                 pageNumber--;
                 fetchImages();
-                window.scroll({ top: 0, behavior: 'smooth' });
+                // window.scroll({ top: 0, behavior: 'smooth' });
+                hideToRefreshImages();
             }
         });
 
@@ -162,6 +175,7 @@ async function fetchPageCount() {
                 pageNumber = pagebtn.id;
                 fetchImages();
                 fetchPageCount();
+                hideToRefreshImages();
             })
         })
 
@@ -177,12 +191,12 @@ async function fetchPageCount() {
                 //hide 'expand page buttons' button if its number is low enough
                 let pb = Array.from(pageBtnContainer.children);
                 // console.log(pb[50].classList)
-                if (pb[25].classList.contains('hidden')) {
-                    overflowButton.classList.add('hidden');
-                    pageBtnContainer.classList.add('height-auto')
-                } else {
+                if (!pb[28].classList.contains('hidden')) {
                     overflowButton.classList.remove('hidden');
                     pageBtnContainer.classList.remove('height-auto')
+                } else {
+                    overflowButton.classList.add('hidden');
+                    pageBtnContainer.classList.add('height-auto')
                 }
                 // console.log(pb.indexOf(p));
                 // console.log(pb[50])
@@ -191,6 +205,51 @@ async function fetchPageCount() {
         }
         hideButtons();
 
+        function hideLoadingBtnAnimation() {
+            loadingBtn.forEach(btn => {
+                btn.classList.add('hidden')
+            })
+        }
+
+        hideLoadingBtnAnimation()
+
+        //hide loading animation
+        loadingSol.classList.add('hidden')
+        //show input after loading
+        solInputLine.classList.remove('hidden')
+        //buttons after loading
+        solBtns.classList.remove('hidden')
+
+        function loadingAfterSolDateInput() {
+            buttons.forEach(btn => {
+                btn.classList.add('hidden')
+            })
+            loadingSol.classList.remove('hidden')
+            loadingBtn.forEach(btn => {
+                btn.classList.remove('hidden')
+            })
+            solBtns.classList.add('hidden');
+            solInputLine.classList.add('hidden');
+            hideToRefreshImages();
+        }
+
+        function hideToRefreshImages() {
+            images.forEach(img => {
+                img.classList.add('hidden')
+            })
+        }
+
+        function removeNavBtnLoadingAnimation() {
+            arrowRightBtn.style.animation = 'null';
+            arrowLeftBtn.style.animation = 'null';
+        }
+
+        removeNavBtnLoadingAnimation()
+
+        function addNavBtnLoadingAnimation() {
+            arrowRightBtn.style.animation = '';
+            arrowLeftBtn.style.animation = '';
+        }
 
         // function hideOverflowButton() {
         //     if (pageBtnContainer.children.classList.includes('pagebtn hidden') > 50) {
@@ -219,7 +278,7 @@ async function fetchPageCount() {
             let solValue = solDateInput.value;
             solDate = solValue;
             e.preventDefault;
-            // e.stopImmediatePropagation();
+            e.stopImmediatePropagation();
             pageNumber = 1;
             solDate = solValue;
             console.log('sol date:', solDateInput.value);
@@ -229,7 +288,8 @@ async function fetchPageCount() {
             console.log('imgArray:', imgArray.length);
             solDateInput.setAttribute('placeholder', `${solDate}`);
             console.dir(e.target);
-            pageBtnContainer.classList.add('height-auto');
+            loadingAfterSolDateInput();
+            addNavBtnLoadingAnimation()
         })
 
         solBtnRight.addEventListener('click', function (e) {
@@ -242,9 +302,9 @@ async function fetchPageCount() {
             fetchPageCount();
             e.stopImmediatePropagation();
             // pageBtnContainer.classList.add('height-auto');
-            console.log(solDate);
-            console.dir(solDateInput);
             pageNumber = 1;
+            loadingAfterSolDateInput();
+            addNavBtnLoadingAnimation();
         })
 
         solBtnLeft.addEventListener('click', function (e) {
@@ -257,8 +317,8 @@ async function fetchPageCount() {
                 fetchPageCount();
                 e.stopImmediatePropagation();
                 pageNumber = 1;
-                pageBtnContainer.classList.add('height-auto');
-                console.dir(solDateInput);
+                loadingAfterSolDateInput();
+                addNavBtnLoadingAnimation();
             }
         })
 
@@ -276,7 +336,6 @@ async function fetchPageCount() {
     }
 }
 
-
 fetchImages();
 fetchPageCount();
 
@@ -290,9 +349,7 @@ fetchPageCount();
 
 
 
+
 overflowButton.innerText = '▼'
-
-
-
 
 
