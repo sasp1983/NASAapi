@@ -6,7 +6,6 @@ let arrowTopLeftBtn = document.querySelector('.arrow-top-left');
 let arrowTopRightBtn = document.querySelector('.arrow-top-right');
 let solBtnLeft = document.querySelector('.solbtn-left');
 let solBtnRight = document.querySelector('.solbtn-right');
-let overflowButton = document.querySelector('.overflow-btn')
 let loadingBtn = document.querySelectorAll('.loading-btn')
 
 let i = 0;
@@ -193,23 +192,7 @@ async function fetchPageCount() {
                     arrowTopRightBtn.classList.remove('hidden')
                     showImages();
                 }
-
-
-
-                //hide 'expand page buttons' button if its number is low enough
-                // let pb = Array.from(pageBtnContainer.children);
-                // // console.log(pb[50].classList)
-                // if (!pb[45].classList.contains('hidden')) {
-                //     overflowButton.classList.remove('hidden');
-                //     pageBtnContainer.classList.remove('height-auto')
-                // } else {
-                //     overflowButton.classList.add('hidden');
-                //     pageBtnContainer.classList.add('height-auto')
-                // }
-                // // console.log(pb.indexOf(p));
-                // // console.log(pb[50])
             })
-            // console.log('buttons: ', pageBtnContainer.childElementCount, 'pages: ', pageCount)
         }
         hideButtons();
 
@@ -363,7 +346,6 @@ function showImages() {
 
 
 pageNumberText.classList.add('hidden')
-overflowButton.innerText = '▼'
 arrowTopLeftBtn.classList.add('hidden')
 arrowTopRightBtn.classList.add('hidden')
 
