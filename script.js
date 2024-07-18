@@ -349,8 +349,3 @@ pageNumberText.classList.add('hidden')
 arrowTopLeftBtn.classList.add('hidden')
 arrowTopRightBtn.classList.add('hidden')
 
-arrowRightBtn.addEventListener('mouseover', function () {
-    pageBtnContainer.scrollRight -= 20;
-
-})
-
