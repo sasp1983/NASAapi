@@ -26,6 +26,8 @@ let solInputLine = document.querySelector('.sol-input-line');
 let loadingSol = document.querySelector('.loading-sol');
 let solBtns = document.querySelector('.sol-date-btns');
 let pageNumberText = document.querySelector('.page-number-text');
+let scrollBtnRight = document.querySelector('.scroll-btn-right')
+let scrollBtnLeft = document.querySelector('.scroll-btn-left')
 
 async function fetchImages() {
     try {
@@ -92,6 +94,7 @@ async function fetchImages() {
                 });
             }
             hideImages();
+            showImages();
         }
         solDateInput.setAttribute('placeholder', `${solDate}`);
 
@@ -194,17 +197,17 @@ async function fetchPageCount() {
 
 
                 //hide 'expand page buttons' button if its number is low enough
-                let pb = Array.from(pageBtnContainer.children);
-                // console.log(pb[50].classList)
-                if (!pb[45].classList.contains('hidden')) {
-                    overflowButton.classList.remove('hidden');
-                    pageBtnContainer.classList.remove('height-auto')
-                } else {
-                    overflowButton.classList.add('hidden');
-                    pageBtnContainer.classList.add('height-auto')
-                }
-                // console.log(pb.indexOf(p));
-                // console.log(pb[50])
+                // let pb = Array.from(pageBtnContainer.children);
+                // // console.log(pb[50].classList)
+                // if (!pb[45].classList.contains('hidden')) {
+                //     overflowButton.classList.remove('hidden');
+                //     pageBtnContainer.classList.remove('height-auto')
+                // } else {
+                //     overflowButton.classList.add('hidden');
+                //     pageBtnContainer.classList.add('height-auto')
+                // }
+                // // console.log(pb.indexOf(p));
+                // // console.log(pb[50])
             })
             // console.log('buttons: ', pageBtnContainer.childElementCount, 'pages: ', pageCount)
         }
@@ -316,7 +319,6 @@ async function fetchPageCount() {
             addNavBtnLoadingAnimation();
             arrowTopLeftBtn.classList.add('hidden')
             arrowTopRightBtn.classList.add('hidden')
-
         })
 
         solBtnLeft.addEventListener('click', function (e) {
@@ -335,15 +337,6 @@ async function fetchPageCount() {
                 arrowTopRightBtn.classList.add('hidden')
             }
         })
-
-        overflowButton.addEventListener('click', function (e) {
-            e.preventDefault;
-            pageBtnContainer.classList.toggle('height-auto');
-            overflowButton.textContent = overflowButton.textContent === '▼' ? '▲' : '▼';
-            console.log('clicked');
-            e.stopImmediatePropagation();
-        });
-
 
     } catch (error) {
         console.log(error)
@@ -373,4 +366,9 @@ pageNumberText.classList.add('hidden')
 overflowButton.innerText = '▼'
 arrowTopLeftBtn.classList.add('hidden')
 arrowTopRightBtn.classList.add('hidden')
+
+arrowRightBtn.addEventListener('mouseover', function () {
+    pageBtnContainer.scrollRight -= 20;
+
+})
 

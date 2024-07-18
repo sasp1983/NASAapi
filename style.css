@@ -135,7 +135,7 @@ h4 {
 .pagenumber-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
     margin-bottom: 10px;
     margin-left: auto;
@@ -148,16 +148,37 @@ h4 {
 }
 
 .pagebtn-container {
-    flex-grow: 1;
-    min-width: 50px;
-    max-width: 800px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    /* min-width: 50px;
+    max-width: 800px; */
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: baseline;
-    transition: 200ms;
-    height: 4.6em;
+    transition: linear 500ms;
+    /* height: 4.6em; */
     /* height: auto; */
-    overflow: hidden;
+    overflow-x: scroll;
+    /* scrollbar-width: auto; */
+    max-width: 20em;
+    max-height: 5.2em;
+    /* padding-top: 1em; */
+    z-index: 0;
+    transition: 500ms;
+    /* padding-bottom: 0.5em; */
+}
+
+.pagebtn-container::-webkit-scrollbar {
+    height: 7px;
+    border-radius: 7px;
+    /* width: auto; */
+    /* background: white; */
+    margin-top: 3px;
+    animation: loading 1s linear infinite alternate;
+}
+
+.pagebtn-container::-webkit-scrollbar-thumb {
+    background: var(--nasa-blue);
 }
 
 
@@ -172,8 +193,9 @@ h4 {
 
 .pagebtn {
     /* padding: 1em; */
-    height: 2.5em;
-    width: 2.5em;
+    min-height: 2.5em;
+    max-height: 2.5em;
+    min-width: 2.5em;
     /* max-height: 4em; */
     border-radius: 50%;
     /* min-width: 2.5em; */
@@ -200,12 +222,13 @@ h4 {
     background-color: grey;
     color: white;
     border: 3px solid white;
-    padding: 0.8em;
+    padding: 0.5em;
     border-radius: 1em;
     cursor: pointer;
     margin: 0.5em;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: bold;
+    font-size: 0.8em;
 }
 
 .solbtn {
@@ -347,8 +370,17 @@ h4 {
     }
 
     100% {
-        background-color: hsla(190, 4%, 29%, 0.411);
+        background-color: hsla(190, 4%, 50%, 0.411);
     }
+}
+
+.hide-pagebtn-scroll {
+    background-color: blue;
+    z-index: 2;
+    width: 200px;
+    height: 100px;
+    /* margin-left: auto; */
+    flex-grow: 0.3;
 }
 
 /* ------------------media queries ---------------*/
@@ -373,15 +405,35 @@ h4 {
     }
 
     .pagebtn-container {
-        height: 2.5em;
-        overflow: hidden;
+        overflow-x: scroll;
+        overflow-y: hidden;
         transition: 200ms;
-        /* max-width: auto;
-        min-width: auto; */
-        align-self: center;
+        max-width: 11em;
+        max-height: 2em;
+        /* align-self: center; */
         display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
+        justify-content: baseline;
+        /* touch-action: pan-x; */
+        scrollbar-width: auto;
+        margin-bottom: 0.5em;
+    }
+
+    .pagebtn-container::-webkit-scrollbar {
+        /* height: 7px; */
+        /* width: auto; */
+
+
+    }
+
+    .pagebtn-container::-webkit-scrollbar-thumb {
+        background: var(--nasa-blue);
+    }
+
+
+    .pagebtn {
+        height: 2.2em;
+        width: 2.2em;
+        font-size: 0.6em;
     }
 
     .height-auto {
