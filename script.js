@@ -6,7 +6,8 @@ let arrowTopLeftBtn = document.querySelector('.arrow-top-left');
 let arrowTopRightBtn = document.querySelector('.arrow-top-right');
 let solBtnLeft = document.querySelector('.solbtn-left');
 let solBtnRight = document.querySelector('.solbtn-right');
-let loadingBtn = document.querySelectorAll('.loading-btn')
+let loadingBtn = document.querySelectorAll('.loading-btn');
+let loadingImg = document.querySelectorAll('.loading-img')
 
 let i = 0;
 
@@ -26,23 +27,22 @@ let loadingSol = document.querySelector('.loading-sol');
 let solBtns = document.querySelector('.sol-date-btns');
 let pageNumberText = document.querySelector('.page-number-text');
 let scrollBtnRight = document.querySelector('.scroll-btn-right')
-let scrollBtnLeft = document.querySelector('.scroll-btn-left')
+let scrollBtnLeft = document.querySelector('.scroll-btn-left');
+let loadingInput = document.querySelectorAll('.loading-input')
 
 async function fetchImages() {
     try {
-        const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}`);
+        const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
 
+        // const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}`);
 
-        // `https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`
-        // api.nasa.gov/mars-photos
-        // mars-photos.herokuapp.com
         if (!response.ok) {
             throw new Error("ADJAS")
         }
         const data = await response.json();
 
         let imgArray = data.photos;
-        console.log('imgArray length:', imgArray.length);
+        // console.log('imgArray length:', imgArray.length);
 
         // console.log(response)
         // console.log(data)
@@ -66,13 +66,11 @@ async function fetchImages() {
             imgLink[i].href = imgArray[i].img_src;
             images[i].onload = images[i].style.opacity = '100%';
 
-
-
             //highlight page buttons
             highlightButtons = () => {
                 buttons.forEach(p => {
                     if (p.id == pageNumber) {
-                        p.classList.add('current-page')
+                        p.classList.add('current-page');
                     } else {
                         p.classList.remove('current-page')
                     }
@@ -84,6 +82,8 @@ async function fetchImages() {
             function hideImages() {
                 imgContainers.forEach(c => {
                     let index = Array.from(pictureGrid.children).indexOf(c);
+                    console.log(index)
+                    console.log(pictureGrid.children)
                     if (index + 1 > imgArray.length) {
                         c.classList.add('hidden');
                     } else {
@@ -92,14 +92,22 @@ async function fetchImages() {
                     // console.log(index)
                 });
             }
-            hideImages();
             showImages();
+            hideImages();
         }
+
         solDateInput.setAttribute('placeholder', `${solDate}`);
+
+
 
     } catch (error) {
         console.error(error)
     }
+    // console.log('clientWidth:', (pageBtnContainer.clientWidth));
+    // console.log('scrollWidth:', (pageBtnContainer.scrollWidth));
+
+
+
 }
 
 async function fetchPageCount() {
@@ -111,23 +119,26 @@ async function fetchPageCount() {
         }
 
         const dataNoPages = await responseNoPages.json();
-        console.log(dataNoPages);
-        console.log(responseNoPages);
+        // console.log(dataNoPages);
+        // console.log(responseNoPages);
         // console.log('array length:', dataNoPages.photos.length);
         window.pageCount = Math.ceil(dataNoPages.photos.length / 25);
-        console.log('pageCount:', window.pageCount);
+        // console.log('pageCount:', window.pageCount);
+        pageNumberText.textContent = pageCount === 1 ? `Page (${pageCount})` : `Pages (${pageCount})`;
 
         //page forward button 
         arrowRightBtn.addEventListener('click', function (e) {
-            console.log('pageNumber', pageNumber);
+            // console.log('pageNumber', pageNumber);
             e.stopImmediatePropagation();
 
             if (pageNumber < pageCount) {
-                console.log('pageCount arrowRightBtn', pageCount);
+                // console.log('pageCount arrowRightBtn', pageCount);
                 pageNumber++;
+                // pageBtnContainer.scrollLeft += 30;
                 fetchImages();
                 // window.scroll({ top: 0, behavior: 'smooth' });
                 hideToRefreshImages();
+
             }
         });
 
@@ -145,16 +156,26 @@ async function fetchPageCount() {
         //page forward button  top
         arrowTopRightBtn.addEventListener('click', function (e) {
             e.stopImmediatePropagation();
-            console.log('pageCount arrowTopRightBtn', pageCount)
+            // console.log('pageCount arrowTopRightBtn', pageCount)
             if (pageNumber < pageCount) {
                 pageNumber++;
                 fetchImages();
                 // window.scroll({ top: 0, behavior: 'smooth' });
                 hideToRefreshImages();
-
+                scrollpageBtns();
             }
             // console.log(pageCount)
         });
+
+        pageBtnContainer.addEventListener('wheel', function (e) {
+            e.preventDefault();
+            // console.log(e.target.scrollx);
+            // this.scrollLeft += 30;
+            e.stopPropagation();
+            pageBtnContainer.scrollBy({
+                left: e.deltaY < 0 ? -30 : 30,
+            })
+        })
 
         //page back button top
         arrowTopLeftBtn.addEventListener('click', function (e) {
@@ -190,7 +211,7 @@ async function fetchPageCount() {
                     pageNumberText.classList.remove('hidden');
                     arrowTopLeftBtn.classList.remove('hidden')
                     arrowTopRightBtn.classList.remove('hidden')
-                    showImages();
+                    // showImages();
                 }
             })
         }
@@ -211,11 +232,24 @@ async function fetchPageCount() {
         //show buttons after loading
         solBtns.classList.remove('hidden');
 
+        function hideLoadingInput() {
+            loadingInput.forEach(l => {
+                l.classList.add('hidden');
+            })
+        }
+        hideLoadingInput();
+
+        function showLoadingInput() {
+            loadingInput.forEach(l => {
+                l.classList.remove('hidden');
+            })
+        }
+
         function loadingAfterSolDateInput() {
             buttons.forEach(btn => {
                 btn.classList.add('hidden')
             })
-            loadingSol.classList.remove('hidden')
+            // loadingSol.classList.remove('hidden')
             loadingBtn.forEach(btn => {
                 btn.classList.remove('hidden')
             })
@@ -285,6 +319,8 @@ async function fetchPageCount() {
             addNavBtnLoadingAnimation();
             arrowTopLeftBtn.classList.add('hidden')
             arrowTopRightBtn.classList.add('hidden')
+            showLoadingInput()
+            hideToRefreshImages();
         })
 
         solBtnRight.addEventListener('click', function (e) {
@@ -296,12 +332,13 @@ async function fetchPageCount() {
             fetchImages();
             fetchPageCount();
             e.stopImmediatePropagation();
-            // pageBtnContainer.classList.add('height-auto');
             pageNumber = 1;
             loadingAfterSolDateInput();
             addNavBtnLoadingAnimation();
             arrowTopLeftBtn.classList.add('hidden')
             arrowTopRightBtn.classList.add('hidden')
+            showLoadingInput()
+            hideToRefreshImages();
         })
 
         solBtnLeft.addEventListener('click', function (e) {
@@ -318,12 +355,16 @@ async function fetchPageCount() {
                 addNavBtnLoadingAnimation();
                 arrowTopLeftBtn.classList.add('hidden')
                 arrowTopRightBtn.classList.add('hidden')
+                showLoadingInput()
+                hideToRefreshImages();
             }
         })
 
     } catch (error) {
         console.log(error)
     }
+    // console.log('clientWidth:', (pageBtnContainer.clientWidth));
+    // console.log('scrollWidth:', (pageBtnContainer.scrollWidth))
 }
 
 fetchImages();
@@ -349,3 +390,21 @@ pageNumberText.classList.add('hidden')
 arrowTopLeftBtn.classList.add('hidden')
 arrowTopRightBtn.classList.add('hidden')
 
+//scroll page buttons if current page is outside of view
+function scrollpageBtns() {
+    //mobile view 
+    let media576px = window.matchMedia('(max-width: 576px)')
+    function checkWindowSize(e) {
+        if (e.matches) {
+            // if (pageNumber > 9) {
+            // pageBtnContainer.scrollLeft += 30;
+            // console.log('clientWidth:', (pageBtnContainer.clientWidth));
+            // console.log('scrollWidth:', (pageBtnContainer.scrollWidth))
+            // }
+        }
+    }
+    checkWindowSize(media576px)
+}
+
+// console.log('clientWidth:', (pageBtnContainer.clientWidth));
+// console.log('scrollWidth:', (pageBtnContainer.scrollWidth))
