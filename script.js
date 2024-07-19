@@ -28,13 +28,13 @@ let solBtns = document.querySelector('.sol-date-btns');
 let pageNumberText = document.querySelector('.page-number-text');
 let scrollBtnRight = document.querySelector('.scroll-btn-right')
 let scrollBtnLeft = document.querySelector('.scroll-btn-left');
-let loadingInput = document.querySelectorAll('.loading-input')
+let loadingInput = document.querySelectorAll('.loading-input');
 
 async function fetchImages() {
     try {
-        const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
+        // const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
 
-        // const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}`);
+        const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}`);
 
         if (!response.ok) {
             throw new Error("ADJAS")
@@ -49,12 +49,27 @@ async function fetchImages() {
 
         //if no images found on sol date
         if (imgArray.length === 0) {
-            fetchImages();
-            solDateWarning.classList.remove('hidden');
-            pictureGrid.classList.add('hidden');
+            try {
+                const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
+
+                // const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}`);
+
+                if (!response.ok) {
+                    throw new Error("ADJAS")
+                }
+                const data = await response.json();
+
+                imgArray = data.photos;
+                // console.log('imgArray length:', imgArray.length);
+                solDateWarning.classList.remove('hidden');
+                pictureGrid.classList.add('hidden');
+                solDateWarning.textContent = `No images found on Sol Date ${solDate}`;
+            } catch (error) {
+                console.error(error);
+            }
         } else {
             solDateWarning.classList.add('hidden');
-            pictureGrid.classList.remove('hidden')
+            pictureGrid.classList.remove('hidden');
         }
 
         //main loop to fetch images
@@ -78,12 +93,26 @@ async function fetchImages() {
             }
             highlightButtons();
 
+            //make highlighted current page buttons stay in middle of scrollbar
+            function centerCurrentPageBtn() {
+
+                buttons.forEach(b => {
+                    let btnRect = b.getBoundingClientRect();
+                    let absolutePosLeft = btnRect.left + b.scrollLeft;
+                    let middle = absolutePosLeft - pageBtnContainer.clientWidth;
+                    if (b.id == pageNumber) {
+                        pos = 128;
+                    }
+                })
+            }
+            centerCurrentPageBtn();
+
             //hide image containers of non-fetched images when at last page 
             function hideImages() {
                 imgContainers.forEach(c => {
                     let index = Array.from(pictureGrid.children).indexOf(c);
-                    console.log(index)
-                    console.log(pictureGrid.children)
+                    // console.log(index)
+                    // console.log(pictureGrid.children)
                     if (index + 1 > imgArray.length) {
                         c.classList.add('hidden');
                     } else {
@@ -161,12 +190,13 @@ async function fetchPageCount() {
                 pageNumber++;
                 fetchImages();
                 // window.scroll({ top: 0, behavior: 'smooth' });
-                hideToRefreshImages();
-                scrollpageBtns();
+                // hideToRefreshImages();
+                // scrollpageBtns();
             }
             // console.log(pageCount)
         });
 
+        //scroll through page buttons
         pageBtnContainer.addEventListener('wheel', function (e) {
             e.preventDefault();
             // console.log(e.target.scrollx);
@@ -226,7 +256,7 @@ async function fetchPageCount() {
         hideLoadingBtnAnimation()
 
         //hide loading animation after load
-        loadingSol.classList.add('hidden')
+        loadingSol.classList.add('hidden');
         //show input after loading
         solInputLine.classList.remove('hidden')
         //show buttons after loading
@@ -314,12 +344,11 @@ async function fetchPageCount() {
             fetchPageCount();
             console.log('imgArray:', imgArray.length);
             solDateInput.setAttribute('placeholder', `${solDate}`);
-            console.dir(e.target);
-            loadingAfterSolDateInput();
-            addNavBtnLoadingAnimation();
-            arrowTopLeftBtn.classList.add('hidden')
-            arrowTopRightBtn.classList.add('hidden')
-            showLoadingInput()
+            // loadingAfterSolDateInput();
+            // addNavBtnLoadingAnimation();
+            // arrowTopLeftBtn.classList.add('hidden');
+            // arrowTopRightBtn.classList.add('hidden');
+            // showLoadingInput();
             hideToRefreshImages();
         })
 
@@ -333,11 +362,11 @@ async function fetchPageCount() {
             fetchPageCount();
             e.stopImmediatePropagation();
             pageNumber = 1;
-            loadingAfterSolDateInput();
-            addNavBtnLoadingAnimation();
-            arrowTopLeftBtn.classList.add('hidden')
-            arrowTopRightBtn.classList.add('hidden')
-            showLoadingInput()
+            // loadingAfterSolDateInput();
+            // addNavBtnLoadingAnimation();
+            // arrowTopLeftBtn.classList.add('hidden')
+            // arrowTopRightBtn.classList.add('hidden')
+            // showLoadingInput();
             hideToRefreshImages();
         })
 
@@ -351,11 +380,11 @@ async function fetchPageCount() {
                 fetchPageCount();
                 e.stopImmediatePropagation();
                 pageNumber = 1;
-                loadingAfterSolDateInput();
-                addNavBtnLoadingAnimation();
-                arrowTopLeftBtn.classList.add('hidden')
-                arrowTopRightBtn.classList.add('hidden')
-                showLoadingInput()
+                // loadingAfterSolDateInput();
+                // addNavBtnLoadingAnimation();
+                // arrowTopLeftBtn.classList.add('hidden')
+                // arrowTopRightBtn.classList.add('hidden')
+                // showLoadingInput();
                 hideToRefreshImages();
             }
         })
@@ -376,35 +405,26 @@ function showImages() {
     })
 }
 
-//make buttons go to page number
-// buttons.forEach(pagebtn => {
-//     pagebtn.addEventListener('click', function () {
-//         pageNumber = pagebtn.id;
-//         // fetchImages();
-//     })
-// })
-
-
 
 pageNumberText.classList.add('hidden')
 arrowTopLeftBtn.classList.add('hidden')
 arrowTopRightBtn.classList.add('hidden')
 
 //scroll page buttons if current page is outside of view
-function scrollpageBtns() {
-    //mobile view 
-    let media576px = window.matchMedia('(max-width: 576px)')
-    function checkWindowSize(e) {
-        if (e.matches) {
-            // if (pageNumber > 9) {
-            // pageBtnContainer.scrollLeft += 30;
-            // console.log('clientWidth:', (pageBtnContainer.clientWidth));
-            // console.log('scrollWidth:', (pageBtnContainer.scrollWidth))
-            // }
-        }
-    }
-    checkWindowSize(media576px)
-}
+// function scrollpageBtns() {
+//     //mobile view
+//     let media576px = window.matchMedia('(max-width: 576px)')
+//     function checkWindowSize(e) {
+//         if (e.matches) {
+//             // if (pageNumber > 9) {
+//             // pageBtnContainer.scrollLeft += 30;
+//             // console.log('clientWidth:', (pageBtnContainer.clientWidth));
+//             // console.log('scrollWidth:', (pageBtnContainer.scrollWidth))
+//             // }
+//         }
+//     }
+//     checkWindowSize(media576px)
+// }
 
 // console.log('clientWidth:', (pageBtnContainer.clientWidth));
 // console.log('scrollWidth:', (pageBtnContainer.scrollWidth))
