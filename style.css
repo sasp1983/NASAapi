@@ -666,4 +666,47 @@ h4 {
     .arrow {
         background-color: var(--nasa-blue);
     }
+
+    .loading-sol {
+        width: 75%;
+        height: 70px;
+        animation: loading 750ms linear infinite alternate;
+        margin: 5px;
+        justify-self: center;
+        align-self: center;
+    }
+
+
+    .loading-input {
+        width: 34%;
+        height: 40px;
+        animation: loading 750ms linear infinite alternate;
+        margin: 5px;
+        justify-self: center;
+        align-self: center;
+    }
+
+    .loading-input:nth-child(2n) {
+        width: 20%;
+        height: 30px;
+    }
+
+    .loading-input:nth-child(3) {
+        width: 10%;
+        height: 20px;
+    }
+
+    .loading-input:nth-child(4n) {
+        display: none;
+    }
+
+    .loading-arrow {
+        height: 1000px;
+        width: 50px;
+        animation: loading 750ms infinite;
+    }
+
+    .loading-top-arrow {
+        animation: loading 750ms linear infinite alternate;
+    }
 }
