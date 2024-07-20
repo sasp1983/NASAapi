@@ -10,7 +10,7 @@ let loadingBtn = document.querySelectorAll('.loading-btn');
 let loadingImg = document.querySelectorAll('.loading-img')
 
 
-let solDate = 1431;
+let solDate = 1000;
 
 let i = 0;
 
@@ -163,7 +163,7 @@ async function fetchPageCount() {
         arrowRightBtn.addEventListener('click', function (e) {
             // console.log('pageNumber', pageNumber);
             e.stopImmediatePropagation();
-
+            pageBtnContainer.scrollLeft += 30;
             if (pageNumber < pageCount) {
                 // console.log('pageCount arrowRightBtn', pageCount);
                 pageNumber++;
@@ -183,6 +183,7 @@ async function fetchPageCount() {
                 fetchImages();
                 // window.scroll({ top: 0, behavior: 'smooth' });
                 hideToRefreshImages();
+                pageBtnContainer.scrollLeft -= 30;
             }
         });
 
@@ -196,20 +197,19 @@ async function fetchPageCount() {
                 // window.scroll({ top: 0, behavior: 'smooth' });
                 // hideToRefreshImages();
                 // scrollpageBtns();
+                buttons.forEach(btn => {
+                    let currentPageBtn;
+                    if (btn.classList.contains('current-page')) {
+                        if (pageNumber > 8) {
+                            pageBtnContainer.scrollLeft += 30;
+                        }
+                    }
+                })
+
             }
             // console.log(pageCount)
         });
 
-        //scroll through page buttons
-        pageBtnContainer.addEventListener('wheel', function (e) {
-            e.preventDefault();
-            // console.log(e.target.scrollx);
-            // this.scrollLeft += 30;
-            e.stopPropagation();
-            pageBtnContainer.scrollBy({
-                left: e.deltaY < 0 ? -30 : 30,
-            })
-        })
 
         //page back button top
         arrowTopLeftBtn.addEventListener('click', function (e) {
@@ -220,8 +220,24 @@ async function fetchPageCount() {
                 fetchImages();
                 // window.scroll({ top: 0, behavior: 'smooth' });
                 hideToRefreshImages();
+                pageBtnContainer.scrollLeft -= 30;
             }
         });
+
+
+
+        //scroll through page buttons
+        pageBtnContainer.addEventListener('wheel', function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            // console.log(e.target.scrollx);
+            // this.scrollLeft += 30;
+            e.stopPropagation();
+            pageBtnContainer.scrollBy({
+                left: e.deltaY < 0 ? -28 : 28,
+            })
+        })
+
 
 
         //make buttons go to page number
