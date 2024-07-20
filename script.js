@@ -9,6 +9,9 @@ let solBtnRight = document.querySelector('.solbtn-right');
 let loadingBtn = document.querySelectorAll('.loading-btn');
 let loadingImg = document.querySelectorAll('.loading-img')
 
+
+let solDate = 1431;
+
 let i = 0;
 
 let imgArray = []
@@ -19,7 +22,6 @@ let images = document.querySelectorAll('.grid-img');
 let pageBtnContainer = document.querySelector('.pagebtn-container')
 let buttons = document.querySelectorAll('.pagebtn');
 let solDateInput = document.getElementById('sol-date');
-let solDate = 109;
 solDateInput.setAttribute('placeholder', `${solDate}`)
 let solDateWarning = document.querySelector('.no-imgs');
 let solInputLine = document.querySelector('.sol-input-line');
@@ -33,6 +35,7 @@ let loadingInput = document.querySelectorAll('.loading-input');
 async function fetchImages() {
     try {
         // const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
+
 
         const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}`);
 
@@ -50,9 +53,10 @@ async function fetchImages() {
         //if no images found on sol date
         if (imgArray.length === 0) {
             try {
-                const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
+                // const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
 
-                // const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}`);
+                const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}`);
+
 
                 if (!response.ok) {
                     throw new Error("ADJAS")
@@ -61,9 +65,11 @@ async function fetchImages() {
 
                 imgArray = data.photos;
                 // console.log('imgArray length:', imgArray.length);
-                solDateWarning.classList.remove('hidden');
-                pictureGrid.classList.add('hidden');
-                solDateWarning.textContent = `No images found on Sol Date ${solDate}`;
+                if (imgArray.length === 0) {
+                    solDateWarning.classList.remove('hidden');
+                    pictureGrid.classList.add('hidden');
+                    solDateWarning.textContent = `No images found on Sol Date ${solDate}`;
+                }
             } catch (error) {
                 console.error(error);
             }
@@ -127,21 +133,19 @@ async function fetchImages() {
 
         solDateInput.setAttribute('placeholder', `${solDate}`);
 
-
-
     } catch (error) {
         console.error(error)
     }
     // console.log('clientWidth:', (pageBtnContainer.clientWidth));
     // console.log('scrollWidth:', (pageBtnContainer.scrollWidth));
 
-
-
 }
 
 async function fetchPageCount() {
     try {
-        const responseNoPages = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${solDate}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
+        // const responseNoPages = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${solDate}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
+
+        const responseNoPages = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/photos?sol=${solDate}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
 
         if (!responseNoPages.ok) {
             throw new Error("ADJAS")
@@ -350,6 +354,7 @@ async function fetchPageCount() {
             // arrowTopRightBtn.classList.add('hidden');
             // showLoadingInput();
             hideToRefreshImages();
+            pageBtnContainer.scrollTo({ left: 0 });
         })
 
         solBtnRight.addEventListener('click', function (e) {
@@ -368,6 +373,7 @@ async function fetchPageCount() {
             // arrowTopRightBtn.classList.add('hidden')
             // showLoadingInput();
             hideToRefreshImages();
+            pageBtnContainer.scrollTo(0, 0);
         })
 
         solBtnLeft.addEventListener('click', function (e) {
@@ -386,6 +392,11 @@ async function fetchPageCount() {
                 // arrowTopRightBtn.classList.add('hidden')
                 // showLoadingInput();
                 hideToRefreshImages();
+                pageBtnContainer.scrollTo(0, 0);
+
+                // function earthDateInput() {
+                //     console.log()
+                // }
             }
         })
 
@@ -404,7 +415,6 @@ function showImages() {
         img.classList.remove('hidden')
     })
 }
-
 
 pageNumberText.classList.add('hidden')
 arrowTopLeftBtn.classList.add('hidden')
