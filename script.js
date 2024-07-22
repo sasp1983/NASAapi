@@ -252,6 +252,7 @@ async function fetchPageCount() {
                 pageNumber = pagebtn.id;
                 fetchImages();
                 fetchPageCount();
+                centerCurrentPageBtn()
                 // hideToRefreshImages();
             })
         })
@@ -445,10 +446,12 @@ async function fetchPageCount() {
             e.preventDefault();
             e.stopImmediatePropagation();
             let roverValue = e.target.value;
-            rover = roverValue
+            rover = roverValue;
             fetchImages();
+            fetchPageCount();
+            pageNumber = 1;
             // console.log(rover)
-            console.log(roverValue)
+            console.log(roverValue);
         })
 
     } catch (error) {
@@ -490,9 +493,12 @@ function centerCurrentPageBtn() {
     buttons.forEach(b => {
         let btnWidth = pageBtnContainer.scrollWidth / pageCount;
         let btnPos = btnWidth * pageNumber - btnWidth;
+        let btnPosCounter = btnPos;
         if (b.classList.contains('current-page')) {
+            // if (btnPosCounter > pageBtnContainer.clientWidth)
             pageBtnContainer.scrollTo({ left: btnPos, behavior: 'smooth' })
-            console.log(btnPos)
+            console.log(`clientWidth ${pageBtnContainer.clientWidth}`)
+            // console.log(`groupScroll ${groupScroll}`)
         }
 
         // if (b.id <= 8) {
@@ -540,6 +546,7 @@ function centerCurrentPageBtn() {
         // }
     })
 }
+
 
 //highlight page buttons
 
