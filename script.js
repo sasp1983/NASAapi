@@ -159,6 +159,7 @@ async function fetchPageCount() {
                 // window.scroll({ top: 0, behavior: 'smooth' });
                 hideToRefreshImages();
                 centerCurrentPageBtn();
+                highlightButtons();
             }
         });
 
@@ -172,6 +173,7 @@ async function fetchPageCount() {
                 hideToRefreshImages();
                 // centerCurrentButton576px();
                 centerCurrentPageBtn();
+                highlightButtons();
             }
         });
 
@@ -205,6 +207,7 @@ async function fetchPageCount() {
                 // window.scroll({ top: 0, behavior: 'smooth' });
                 // hideToRefreshImages();
                 centerCurrentPageBtn();
+                highlightButtons();
             }
             e.stopImmediatePropagation();
         });
