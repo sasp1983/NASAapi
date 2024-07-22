@@ -1,4 +1,4 @@
-// fetch('https://images-api.nasa.gov')
+fetch('https://images-api.nasa.gov')
 
 let arrowLeftBtn = document.querySelector('.arrow-left');
 let arrowRightBtn = document.querySelector('.arrow-right');
@@ -8,7 +8,9 @@ let solBtnLeft = document.querySelector('.solbtn-left');
 let solBtnRight = document.querySelector('.solbtn-right');
 let loadingBtn = document.querySelectorAll('.loading-btn');
 let loadingImg = document.querySelectorAll('.loading-img')
-
+let roverChoice = document.querySelector('#rovers')
+let loadingRover = document.querySelector('.loading-rover')
+let roverContainer = document.querySelector('.rover-container')
 
 let solDate = 1000;
 
@@ -31,13 +33,14 @@ let pageNumberText = document.querySelector('.page-number-text');
 let scrollBtnRight = document.querySelector('.scroll-btn-right')
 let scrollBtnLeft = document.querySelector('.scroll-btn-left');
 let loadingInput = document.querySelectorAll('.loading-input');
+let rover;
+rover = 'curiosity';
 
 async function fetchImages() {
     try {
-        // const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
+        const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
 
-
-        const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}`);
+        // const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}`);
 
         if (!response.ok) {
             throw new Error("ADJAS")
@@ -53,9 +56,9 @@ async function fetchImages() {
         //if no images found on sol date
         if (imgArray.length === 0) {
             try {
-                // const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
+                const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
 
-                const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/photos?sol=${solDate}&page=${pageNumber}`);
+                // const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}`);
 
 
                 if (!response.ok) {
@@ -87,49 +90,35 @@ async function fetchImages() {
             imgLink[i].href = imgArray[i].img_src;
             images[i].onload = images[i].style.opacity = '100%';
 
-            //highlight page buttons
-            highlightButtons = () => {
-                buttons.forEach(p => {
-                    if (p.id == pageNumber) {
-                        p.classList.add('current-page');
-                    } else {
-                        p.classList.remove('current-page')
-                    }
-                })
-            }
-            highlightButtons();
-
-            //make highlighted current page buttons stay in middle of scrollbar
-            function centerCurrentPageBtn() {
-
-                buttons.forEach(b => {
-                    let btnRect = b.getBoundingClientRect();
-                    let absolutePosLeft = btnRect.left + b.scrollLeft;
-                    let middle = absolutePosLeft - pageBtnContainer.clientWidth;
-                    if (b.id == pageNumber) {
-                        pos = 128;
-                    }
-                })
-            }
-            centerCurrentPageBtn();
-
-            //hide image containers of non-fetched images when at last page 
-            function hideImages() {
-                imgContainers.forEach(c => {
-                    let index = Array.from(pictureGrid.children).indexOf(c);
-                    // console.log(index)
-                    // console.log(pictureGrid.children)
-                    if (index + 1 > imgArray.length) {
-                        c.classList.add('hidden');
-                    } else {
-                        c.classList.remove('hidden');
-                    }
-                    // console.log(index)
-                });
-            }
-            showImages();
-            hideImages();
+            // //highlight page buttons
+            // highlightButtons = () => {
+            //     buttons.forEach(p => {
+            //         if (p.id == pageNumber) {
+            //             p.classList.add('current-page');
+            //         } else {
+            //             p.classList.remove('current-page')
+            //         }
+            //     })
+            // }
+            // highlightButtons();
         }
+
+        //hide image containers of non-fetched images when at last page 
+        function hideImages() {
+            imgContainers.forEach(c => {
+                let index = Array.from(pictureGrid.children).indexOf(c);
+                // console.log(index)
+                // console.log(pictureGrid.children)
+                if (index + 1 > imgArray.length) {
+                    c.classList.add('hidden');
+                } else {
+                    c.classList.remove('hidden');
+                }
+                // console.log(index)
+            });
+        }
+        showImages();
+        hideImages();
 
         solDateInput.setAttribute('placeholder', `${solDate}`);
 
@@ -138,14 +127,13 @@ async function fetchImages() {
     }
     // console.log('clientWidth:', (pageBtnContainer.clientWidth));
     // console.log('scrollWidth:', (pageBtnContainer.scrollWidth));
-
 }
 
 async function fetchPageCount() {
     try {
-        // const responseNoPages = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${solDate}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
+        const responseNoPages = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${solDate}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
 
-        const responseNoPages = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/photos?sol=${solDate}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
+        // const responseNoPages = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/photos?sol=${solDate}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
 
         if (!responseNoPages.ok) {
             throw new Error("ADJAS")
@@ -163,7 +151,6 @@ async function fetchPageCount() {
         arrowRightBtn.addEventListener('click', function (e) {
             // console.log('pageNumber', pageNumber);
             e.stopImmediatePropagation();
-            pageBtnContainer.scrollLeft += 30;
             if (pageNumber < pageCount) {
                 // console.log('pageCount arrowRightBtn', pageCount);
                 pageNumber++;
@@ -171,7 +158,7 @@ async function fetchPageCount() {
                 fetchImages();
                 // window.scroll({ top: 0, behavior: 'smooth' });
                 hideToRefreshImages();
-
+                centerCurrentPageBtn();
             }
         });
 
@@ -183,62 +170,69 @@ async function fetchPageCount() {
                 fetchImages();
                 // window.scroll({ top: 0, behavior: 'smooth' });
                 hideToRefreshImages();
-                pageBtnContainer.scrollLeft -= 30;
+                // centerCurrentButton576px();
+                centerCurrentPageBtn();
             }
         });
 
-        //page forward button  top
+
+        //page forward button top
         arrowTopRightBtn.addEventListener('click', function (e) {
-            e.stopImmediatePropagation();
+
             // console.log('pageCount arrowTopRightBtn', pageCount)
             if (pageNumber < pageCount) {
                 pageNumber++;
+                centerCurrentButton576px();
                 fetchImages();
-                // window.scroll({ top: 0, behavior: 'smooth' });
+                fetchPageCount();
                 // hideToRefreshImages();
-                // scrollpageBtns();
-                buttons.forEach(btn => {
-                    let currentPageBtn;
-                    if (btn.classList.contains('current-page')) {
-                        if (pageNumber > 8) {
-                            pageBtnContainer.scrollLeft += 30;
-                        }
-                    }
-                })
-
+                centerCurrentPageBtn();
+                // clearInterval(hightlightLoop)
+                highlightButtons();
             }
             // console.log(pageCount)
+            e.stopImmediatePropagation();
         });
-
 
         //page back button top
         arrowTopLeftBtn.addEventListener('click', function (e) {
-            e.stopImmediatePropagation();
             console.log('pageCount arrowLeftBtn', pageCount)
             if (pageNumber >= 2) {
                 pageNumber--;
+                centerCurrentButton576px();
                 fetchImages();
+                fetchPageCount();
                 // window.scroll({ top: 0, behavior: 'smooth' });
-                hideToRefreshImages();
-                pageBtnContainer.scrollLeft -= 30;
+                // hideToRefreshImages();
+                centerCurrentPageBtn();
             }
+            e.stopImmediatePropagation();
         });
-
-
 
         //scroll through page buttons
         pageBtnContainer.addEventListener('wheel', function (e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            // console.log(e.target.scrollx);
-            // this.scrollLeft += 30;
+            console.log('scrollLeft:', this.scrollLeft)
+            console.log('scrollWidth', pageBtnContainer.scrollWidth)
+            console.log('clientWidth', pageBtnContainer.clientWidth)
+            console.log('offsetLeft', pageBtnContainer.offsetLeft)
+            console.log()
             e.stopPropagation();
             pageBtnContainer.scrollBy({
-                left: e.deltaY < 0 ? -28 : 28,
+                left: e.deltaY < 0 ? -10 : 10,
+            })
+
+            buttons.forEach(b => {
+                if (!b.classList.contains('hidden')) {
+                    let bPos = b.getBoundingClientRect().left;
+                    console.log('bPos:', b.id, bPos);
+                    if (b.classList.contains('current-page')) {
+                        console.log('current', b.id)
+                    }
+                }
             })
         })
-
-
 
         //make buttons go to page number
         buttons.forEach(pagebtn => {
@@ -247,9 +241,23 @@ async function fetchPageCount() {
                 pageNumber = pagebtn.id;
                 fetchImages();
                 fetchPageCount();
-                hideToRefreshImages();
+                // hideToRefreshImages();
             })
         })
+
+
+        // //highlight page buttons
+        // highlightButtons = () => {
+        //     buttons.forEach(p => {
+        //         if (p.id == pageNumber) {
+        //             p.classList.add('current-page');
+        //         } else {
+        //             p.classList.remove('current-page')
+        //         }
+        //     })
+        //     console.log('sup')
+        // }
+        // hightlightLoop = setInterval(highlightButtons, 500)
 
         //hide page buttons to match the page count
         function hideButtons() {
@@ -281,6 +289,10 @@ async function fetchPageCount() {
         solInputLine.classList.remove('hidden')
         //show buttons after loading
         solBtns.classList.remove('hidden');
+        //hide rover loading
+        loadingRover.classList.add('hidden');
+        roverContainer.classList.remove('hidden')
+
 
         function hideLoadingInput() {
             loadingInput.forEach(l => {
@@ -336,8 +348,8 @@ async function fetchPageCount() {
         //         // overflowButton.classList.add('hidden');
         //     }
         // }
-
         // hideOverflowButton();
+
         // function createButtons() {
         //     for (let p = 0; p < pageCount; p++) {
         //         let bu = document.createElement('button');
@@ -354,10 +366,12 @@ async function fetchPageCount() {
         solDateInput.addEventListener('change', function (e) {
             let solValue = solDateInput.value;
             solDate = solValue;
-            e.preventDefault;
+            e.preventDefault();
             e.stopImmediatePropagation();
             pageNumber = 1;
-            solDate = solValue;
+            e.placeholder = solDateInput.value;
+            console.log(e.placeholder);
+            console.dir(e.target)
             console.log('sol date:', solDateInput.value);
             // solDateInput.value = '';
             fetchImages();
@@ -374,9 +388,9 @@ async function fetchPageCount() {
         })
 
         solBtnRight.addEventListener('click', function (e) {
-            e.preventDefault;
+            e.preventDefault();
             solDate++;
-            console.log(e.target.value)
+            // console.log(e.target.value)
             solDateInput.setAttribute('placeholder'.replace(), `${solDate}`);
             solDateInput.value = ``;
             fetchImages();
@@ -393,7 +407,7 @@ async function fetchPageCount() {
         })
 
         solBtnLeft.addEventListener('click', function (e) {
-            e.preventDefault;
+            e.preventDefault();
             if (!solDate <= 0) {
                 solDate--;
                 solDateInput.setAttribute('placeholder'.replace(), `${solDate}`);
@@ -416,11 +430,22 @@ async function fetchPageCount() {
             }
         })
 
+        roverChoice.addEventListener('change', function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            let roverValue = e.target.value;
+            rover = roverValue
+            fetchImages();
+            // console.log(rover)
+            console.log(roverValue)
+        })
+
     } catch (error) {
         console.log(error)
     }
     // console.log('clientWidth:', (pageBtnContainer.clientWidth));
     // console.log('scrollWidth:', (pageBtnContainer.scrollWidth))
+    highlightButtons();
 }
 
 fetchImages();
@@ -436,21 +461,84 @@ pageNumberText.classList.add('hidden')
 arrowTopLeftBtn.classList.add('hidden')
 arrowTopRightBtn.classList.add('hidden')
 
-//scroll page buttons if current page is outside of view
-// function scrollpageBtns() {
-//     //mobile view
-//     let media576px = window.matchMedia('(max-width: 576px)')
-//     function checkWindowSize(e) {
-//         if (e.matches) {
-//             // if (pageNumber > 9) {
-//             // pageBtnContainer.scrollLeft += 30;
-//             // console.log('clientWidth:', (pageBtnContainer.clientWidth));
-//             // console.log('scrollWidth:', (pageBtnContainer.scrollWidth))
-//             // }
-//         }
-//     }
-//     checkWindowSize(media576px)
-// }
+//mediaquery 576px
+function centerCurrentButton576px() {
+    //mobile view
+    let media576px = window.matchMedia('(max-width: 576px)')
+    function checkWindowSize(e) {
+        if (e.matches) {
+
+
+        }
+    }
+    checkWindowSize(media576px)
+}
 
 // console.log('clientWidth:', (pageBtnContainer.clientWidth));
 // console.log('scrollWidth:', (pageBtnContainer.scrollWidth))
+
+function centerCurrentPageBtn() {
+    buttons.forEach(b => {
+        let bPos = b.getBoundingClientRect().x;
+        if (b.classList.contains('current-page')) {
+            if (b.id <= 8) {
+                pageBtnContainer.scrollTo({ left: 0, behavior: 'smooth' });
+            } else if (b.id < 16) {
+                pageBtnContainer.scrollTo({ left: 250, behavior: 'smooth' });
+            } else if (b.id < 24) {
+                pageBtnContainer.scrollTo({ left: 500, behavior: 'smooth' });
+            } else if (b.id < 32) {
+                pageBtnContainer.scrollTo({ left: 750, behavior: 'smooth' });
+            } else if (b.id < 40) {
+                pageBtnContainer.scrollTo({ left: 960, behavior: 'smooth' });
+            } else if (b.id < 48) {
+                pageBtnContainer.scrollTo({ left: 1195, behavior: 'smooth' });
+            } else if (b.id < 56) {
+                pageBtnContainer.scrollTo({ left: 1430, behavior: 'smooth' });
+            } else if (b.id < 64) {
+                pageBtnContainer.scrollTo({ left: 1665, behavior: 'smooth' });
+            } else if (b.id < 70) {
+                pageBtnContainer.scrollTo({ left: 1900, behavior: 'smooth' });
+            } else if (b.id < 78) {
+                pageBtnContainer.scrollTo({ left: 2135, behavior: 'smooth' });
+            } else if (b.id < 86) {
+                pageBtnContainer.scrollTo({ left: 2370, behavior: 'smooth' });
+            } else if (b.id < 94) {
+                pageBtnContainer.scrollTo({ left: 2605, behavior: 'smooth' });
+            } else if (b.id < 100) {
+                pageBtnContainer.scrollTo({ left: 2840, behavior: 'smooth' });
+            } else if (b.id < 108) {
+                pageBtnContainer.scrollTo({ left: 3075, behavior: 'smooth' });
+            } else if (b.id < 116) {
+                pageBtnContainer.scrollTo({ left: 3310, behavior: 'smooth' });
+            } else if (b.id < 124) {
+                pageBtnContainer.scrollTo({ left: 3545, behavior: 'smooth' });
+            } else if (b.id < 132) {
+                pageBtnContainer.scrollTo({ left: 3780, behavior: 'smooth' });
+            } else if (b.id < 140) {
+                pageBtnContainer.scrollTo({ left: 4015, behavior: 'smooth' });
+            } else if (b.id < 148) {
+                pageBtnContainer.scrollTo({ left: 4250, behavior: 'smooth' });
+            } else if (b.id < 156) {
+                pageBtnContainer.scrollTo({ left: 4485, behavior: 'smooth' });
+            } else if (b.id < 164) {
+                pageBtnContainer.scrollTo({ left: 4720, behavior: 'smooth' });
+            }
+        }
+    })
+}
+
+//highlight page buttons
+
+highlightButtons = () => {
+    buttons.forEach(p => {
+        if (p.id == pageNumber) {
+            p.classList.add('current-page');
+        } else {
+            p.classList.remove('current-page')
+        }
+    })
+    console.log('sup')
+}
+
+highlightButtons();
