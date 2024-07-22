@@ -118,7 +118,7 @@ async function fetchImages() {
             });
         }
         showImages();
-        hideImages();
+        // hideImages();
 
         solDateInput.setAttribute('placeholder', `${solDate}`);
 
@@ -157,9 +157,10 @@ async function fetchPageCount() {
                 // pageBtnContainer.scrollLeft += 30;
                 fetchImages();
                 // window.scroll({ top: 0, behavior: 'smooth' });
-                hideToRefreshImages();
+                // hideToRefreshImages();
                 centerCurrentPageBtn();
                 highlightButtons();
+                e.stopImmediatePropagation();
             }
         });
 
@@ -184,13 +185,13 @@ async function fetchPageCount() {
             // console.log('pageCount arrowTopRightBtn', pageCount)
             if (pageNumber < pageCount) {
                 pageNumber++;
-                centerCurrentButton576px();
                 fetchImages();
                 fetchPageCount();
                 // hideToRefreshImages();
                 centerCurrentPageBtn();
                 // clearInterval(hightlightLoop)
                 highlightButtons();
+                // scrollTo(20);
             }
             // console.log(pageCount)
             e.stopImmediatePropagation();
@@ -201,7 +202,6 @@ async function fetchPageCount() {
             console.log('pageCount arrowLeftBtn', pageCount)
             if (pageNumber >= 2) {
                 pageNumber--;
-                centerCurrentButton576px();
                 fetchImages();
                 fetchPageCount();
                 // window.scroll({ top: 0, behavior: 'smooth' });
@@ -216,10 +216,11 @@ async function fetchPageCount() {
         pageBtnContainer.addEventListener('wheel', function (e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            console.log('scrollLeft:', this.scrollLeft)
-            console.log('scrollWidth', pageBtnContainer.scrollWidth)
-            console.log('clientWidth', pageBtnContainer.clientWidth)
-            console.log('offsetLeft', pageBtnContainer.offsetLeft)
+
+            // console.log('scrollWidth', this.scrollWidth)
+            // console.log('clientWidth', this.clientWidth)
+            console.log('offsetLeft pageBtnContainer', this.offsetLeft)
+            // console.log('clientLeft', this.clientLeft)
             console.log()
             e.stopPropagation();
             pageBtnContainer.scrollBy({
@@ -228,10 +229,17 @@ async function fetchPageCount() {
 
             buttons.forEach(b => {
                 if (!b.classList.contains('hidden')) {
-                    let bPos = b.getBoundingClientRect().left;
-                    console.log('bPos:', b.id, bPos);
+
+
+                    // console.log('bPos:', b.id, bPos);
+                    // console.log('boffsettLeft', bOffset)
                     if (b.classList.contains('current-page')) {
-                        console.log('current', b.id)
+                        console.log('%c scrollLeft pageBtnContainer:', 'background-color: red;color:white', this.scrollLeft)
+                        let bOffset = b.offsetLeft;
+                        let bPos = b.getBoundingClientRect().left;
+                        // console.log('current', b.id)
+                        console.log('offsetLeft currentpage btn', bOffset, b.id)
+                        console.log('bPos currentpage btn', bPos)
                     }
                 }
             })
@@ -386,7 +394,7 @@ async function fetchPageCount() {
             // arrowTopLeftBtn.classList.add('hidden');
             // arrowTopRightBtn.classList.add('hidden');
             // showLoadingInput();
-            hideToRefreshImages();
+            // hideToRefreshImages();
             pageBtnContainer.scrollTo({ left: 0 });
         })
 
@@ -405,7 +413,7 @@ async function fetchPageCount() {
             // arrowTopLeftBtn.classList.add('hidden')
             // arrowTopRightBtn.classList.add('hidden')
             // showLoadingInput();
-            hideToRefreshImages();
+            // hideToRefreshImages();
             pageBtnContainer.scrollTo(0, 0);
         })
 
@@ -424,7 +432,7 @@ async function fetchPageCount() {
                 // arrowTopLeftBtn.classList.add('hidden')
                 // arrowTopRightBtn.classList.add('hidden')
                 // showLoadingInput();
-                hideToRefreshImages();
+                // hideToRefreshImages();
                 pageBtnContainer.scrollTo(0, 0);
 
                 // function earthDateInput() {
@@ -477,57 +485,59 @@ function centerCurrentButton576px() {
     checkWindowSize(media576px)
 }
 
-// console.log('clientWidth:', (pageBtnContainer.clientWidth));
-// console.log('scrollWidth:', (pageBtnContainer.scrollWidth))
 
 function centerCurrentPageBtn() {
     buttons.forEach(b => {
-        let bPos = b.getBoundingClientRect().x;
+        let btnWidth = pageBtnContainer.scrollWidth / pageCount;
+        let btnPos = btnWidth * pageNumber - btnWidth;
         if (b.classList.contains('current-page')) {
-            if (b.id <= 8) {
-                pageBtnContainer.scrollTo({ left: 0, behavior: 'smooth' });
-            } else if (b.id < 16) {
-                pageBtnContainer.scrollTo({ left: 250, behavior: 'smooth' });
-            } else if (b.id < 24) {
-                pageBtnContainer.scrollTo({ left: 500, behavior: 'smooth' });
-            } else if (b.id < 32) {
-                pageBtnContainer.scrollTo({ left: 750, behavior: 'smooth' });
-            } else if (b.id < 40) {
-                pageBtnContainer.scrollTo({ left: 960, behavior: 'smooth' });
-            } else if (b.id < 48) {
-                pageBtnContainer.scrollTo({ left: 1195, behavior: 'smooth' });
-            } else if (b.id < 56) {
-                pageBtnContainer.scrollTo({ left: 1430, behavior: 'smooth' });
-            } else if (b.id < 64) {
-                pageBtnContainer.scrollTo({ left: 1665, behavior: 'smooth' });
-            } else if (b.id < 70) {
-                pageBtnContainer.scrollTo({ left: 1900, behavior: 'smooth' });
-            } else if (b.id < 78) {
-                pageBtnContainer.scrollTo({ left: 2135, behavior: 'smooth' });
-            } else if (b.id < 86) {
-                pageBtnContainer.scrollTo({ left: 2370, behavior: 'smooth' });
-            } else if (b.id < 94) {
-                pageBtnContainer.scrollTo({ left: 2605, behavior: 'smooth' });
-            } else if (b.id < 100) {
-                pageBtnContainer.scrollTo({ left: 2840, behavior: 'smooth' });
-            } else if (b.id < 108) {
-                pageBtnContainer.scrollTo({ left: 3075, behavior: 'smooth' });
-            } else if (b.id < 116) {
-                pageBtnContainer.scrollTo({ left: 3310, behavior: 'smooth' });
-            } else if (b.id < 124) {
-                pageBtnContainer.scrollTo({ left: 3545, behavior: 'smooth' });
-            } else if (b.id < 132) {
-                pageBtnContainer.scrollTo({ left: 3780, behavior: 'smooth' });
-            } else if (b.id < 140) {
-                pageBtnContainer.scrollTo({ left: 4015, behavior: 'smooth' });
-            } else if (b.id < 148) {
-                pageBtnContainer.scrollTo({ left: 4250, behavior: 'smooth' });
-            } else if (b.id < 156) {
-                pageBtnContainer.scrollTo({ left: 4485, behavior: 'smooth' });
-            } else if (b.id < 164) {
-                pageBtnContainer.scrollTo({ left: 4720, behavior: 'smooth' });
-            }
+            pageBtnContainer.scrollTo({ left: btnPos, behavior: 'smooth' })
+            console.log(btnPos)
         }
+
+        // if (b.id <= 8) {
+        //     pageBtnContainer.scrollTo({ left: 0, behavior: 'smooth' });
+        // } else if (b.id < 16) {
+        //     pageBtnContainer.scrollTo({ left: 250, behavior: 'smooth' });
+        // } else if (b.id < 24) {
+        //     pageBtnContainer.scrollTo({ left: 500, behavior: 'smooth' });
+        // } else if (b.id < 32) {
+        //     pageBtnContainer.scrollTo({ left: 750, behavior: 'smooth' });
+        // } else if (b.id < 40) {
+        //     pageBtnContainer.scrollTo({ left: 960, behavior: 'smooth' });
+        // } else if (b.id < 48) {
+        //     pageBtnContainer.scrollTo({ left: 1195, behavior: 'smooth' });
+        // } else if (b.id < 56) {
+        //     pageBtnContainer.scrollTo({ left: 1430, behavior: 'smooth' });
+        // } else if (b.id < 64) {
+        //     pageBtnContainer.scrollTo({ left: 1665, behavior: 'smooth' });
+        // } else if (b.id < 70) {
+        //     pageBtnContainer.scrollTo({ left: 1900, behavior: 'smooth' });
+        // } else if (b.id < 78) {
+        //     pageBtnContainer.scrollTo({ left: 2135, behavior: 'smooth' });
+        // } else if (b.id < 86) {
+        //     pageBtnContainer.scrollTo({ left: 2370, behavior: 'smooth' });
+        // } else if (b.id < 94) {
+        //     pageBtnContainer.scrollTo({ left: 2605, behavior: 'smooth' });
+        // } else if (b.id < 100) {
+        //     pageBtnContainer.scrollTo({ left: 2840, behavior: 'smooth' });
+        // } else if (b.id < 108) {
+        //     pageBtnContainer.scrollTo({ left: 3075, behavior: 'smooth' });
+        // } else if (b.id < 116) {
+        //     pageBtnContainer.scrollTo({ left: 3310, behavior: 'smooth' });
+        // } else if (b.id < 124) {
+        //     pageBtnContainer.scrollTo({ left: 3545, behavior: 'smooth' });
+        // } else if (b.id < 132) {
+        //     pageBtnContainer.scrollTo({ left: 3780, behavior: 'smooth' });
+        // } else if (b.id < 140) {
+        //     pageBtnContainer.scrollTo({ left: 4015, behavior: 'smooth' });
+        // } else if (b.id < 148) {
+        //     pageBtnContainer.scrollTo({ left: 4250, behavior: 'smooth' });
+        // } else if (b.id < 156) {
+        //     pageBtnContainer.scrollTo({ left: 4485, behavior: 'smooth' });
+        // } else if (b.id < 164) {
+        //     pageBtnContainer.scrollTo({ left: 4720, behavior: 'smooth' });
+        // }
     })
 }
 
@@ -541,7 +551,16 @@ highlightButtons = () => {
             p.classList.remove('current-page')
         }
     })
-    console.log('sup')
 }
 
 highlightButtons();
+
+function scrollTo(index) {
+    let cont = document.querySelector('pagebtn-container');
+    let el = document.getElementsByClassName('pagebtn')[index];
+
+
+
+    cont.scrollLeft += el.offsetLeft - cont.offsetLeft;
+}
+
