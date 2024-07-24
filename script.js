@@ -85,7 +85,7 @@ async function fetchImages() {
             pictureGrid.classList.remove('hidden');
         }
 
-        //main loop to fetch images
+        //loop to fetch images
         for (i = 0; i < imgArray.length; i++) {
             let images = document.querySelectorAll('.grid-img');
             images[i].src = imgArray[i].img_src;
