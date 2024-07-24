@@ -501,7 +501,7 @@ h4 {
         overflow-x: scroll;
         overflow-y: hidden;
         transition: 200ms;
-        min-width: fit-content;
+        min-width: auto;
         max-width: 16.5em;
         /* min-width: 3em; */
         /* max-height: 2.5em; */
