@@ -489,18 +489,31 @@ async function fetchPageCount() {
 fetchImages();
 fetchPageCount();
 
+// hideMenuBtn.addEventListener('click', function () {
+//     if (menuContainer.style.display != 'none') {
+//         menuContainer.style.display = 'none';
+//         hideText.innerText = 'show Menu';
+//         arrowUp.style.transform = 'rotate(-180deg)'
+
+//     } else if (menuContainer.style.display = 'none') {
+//         menuContainer.style.display = 'flex';
+//         hideText.innerText = 'hide Menu';
+//         arrowUp.style.transform = 'rotate(0deg)';
+//     }
+
+// })
+
 hideMenuBtn.addEventListener('click', function () {
-    if (menuContainer.style.display != 'none') {
-        menuContainer.style.display = 'none';
+    if (menuContainer.style.height != '0em') {
+        menuContainer.style.height = '0em';
         hideText.innerText = 'show Menu';
         arrowUp.style.transform = 'rotate(-180deg)'
 
-    } else if (menuContainer.style.display = 'none') {
-        menuContainer.style.display = 'flex';
+    } else if (menuContainer.style.height = '0em') {
+        menuContainer.style.height = '18em';
         hideText.innerText = 'hide Menu';
         arrowUp.style.transform = 'rotate(0deg)';
     }
-
 })
 
 function showImages() {
@@ -562,10 +575,6 @@ function centerCurrentPageBtn() {
         }
     })
 }
-
-
-
-
 
 //highlight page buttons
 
