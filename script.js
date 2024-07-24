@@ -513,12 +513,12 @@ function centerCurrentPageBtn() {
         }
 
         else if (b.classList.contains('current-page') && media901px.matches) {
-            if (b.id >= 7) {
+            if (b.id >= 8) {
                 pageBtnContainer.scrollTo({ left: btnPos901, behavior: 'smooth' })
                 console.log('yes')
             }
         } else if (b.classList.contains('current-page') && media1280px.matches) {
-            if (b.id >= 7) {
+            if (b.id >= 9) {
                 pageBtnContainer.scrollTo({ left: btnPos1280, behavior: 'smooth' })
                 console.log('yesyes')
             }
