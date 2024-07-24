@@ -493,7 +493,7 @@ hideMenuBtn.addEventListener('click', function () {
     if (menuContainer.style.display != 'none') {
         menuContainer.style.display = 'none';
         hideText.innerText = 'show Menu';
-        arrowUp.style.transform = 'rotate(180deg)'
+        arrowUp.style.transform = 'rotate(-180deg)'
 
     } else if (menuContainer.style.display = 'none') {
         menuContainer.style.display = 'flex';
