@@ -118,7 +118,7 @@ input[type=number]::-webkit-inner-spin-button {
 
 h1 {
     display: block;
-    margin-top: 0;
+    margin-top: 0.7em;
 }
 
 h4 {
@@ -335,6 +335,7 @@ h4 {
 .current-page {
     /* background-color: var(--nasa-blue); */
     border: 1px solid white;
+    filter: brightness(2);
 }
 
 #sol-date {
@@ -501,21 +502,30 @@ h4 {
 }
 
 .hide-container {
-    align-self: end;
+    align-self: center;
     margin-left: auto;
-    margin-right: 1em;
+    margin-right: auto;
     margin-bottom: 0.5;
     flex-grow: 1;
     cursor: pointer;
     font-size: 0.8em;
     display: inline-block;
     opacity: 75%;
+    padding-top: 0.5em;
 }
 
 @media (hover: hover) {
     .hide-container:hover {
         opacity: 100%;
     }
+}
+
+.spacer {
+    flex-grow: 1;
+    flex-basis: auto;
+    width: 100%;
+    height: auto;
+    margin-right: auto;
 }
 
 /* ------------------media queries ---------------*/
@@ -699,7 +709,7 @@ h4 {
         overflow-y: hidden;
         transition: 200ms;
         min-width: auto;
-        max-width: 20em;
+        max-width: 21.7em;
         /* min-width: 3em; */
         /* max-height: 2.5em; */
         align-self: center;
@@ -778,6 +788,7 @@ h4 {
 
 }
 
+
 @media screen and (min-width:901px) and (max-width: 1279px) {
 
     .main {
@@ -816,7 +827,7 @@ h4 {
         overflow-y: hidden;
         transition: 200ms;
         min-width: auto;
-        max-width: 24em;
+        max-width: 25.4em;
         /* min-width: 3em; */
         /* max-height: 2.5em; */
         align-self: center;
@@ -893,7 +904,7 @@ h4 {
         overflow-y: hidden;
         transition: 200ms;
         min-width: auto;
-        max-width: 27.4em;
+        max-width: 29em;
         /* min-width: 3em; */
         /* max-height: 2.5em; */
         align-self: center;
