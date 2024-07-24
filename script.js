@@ -508,7 +508,7 @@ function mediaQuery901() {
 function centerCurrentPageBtn() {
     buttons.forEach(b => {
         let btnWidth = pageBtnContainer.scrollWidth / pageCount;
-        var btnWidths = btnWidth - (btnWidth * 6);
+        let btnWidths = btnWidth - (btnWidth * 6);
         let btnWidths900 = btnWidth - (btnWidth * 7);
         let btnWidths901 = btnWidth - (btnWidth * 8)
         let btnWidths1280 = btnWidth - (btnWidth * 9)

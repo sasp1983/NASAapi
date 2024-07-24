@@ -936,3 +936,14 @@ h4 {
         animation: loading 750ms linear infinite alternate;
     }
 }
+
+@media (prefers-color-scheme: dark) {
+    .rovers {
+        border-color: var(--nasa-blue)
+    }
+
+    .arrow img {
+        filter: invert();
+    }
+
+}
