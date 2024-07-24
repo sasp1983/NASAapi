@@ -147,6 +147,7 @@ h4 {
     margin-bottom: 10px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: auto;
     /* flex-wrap: wrap; */
     /* max-width: 60%; */
     /* padding-left: 1em; */
@@ -173,7 +174,7 @@ h4 {
     /* z-index: 5; */
     transition: 500ms;
     /* padding-bottom: 0.5em; */
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
 }
 
 .pagebtn-container::-webkit-scrollbar {
@@ -199,6 +200,7 @@ h4 {
     display: block;
 }
 
+
 .pagebtn {
     /* padding: 1em; */
     min-height: 2.6em;
@@ -206,12 +208,15 @@ h4 {
     min-width: 2.6em;
     max-width: 2.6em;
     /* max-height: 4em; */
-    border-radius: 50%;
+    /* border-radius: 50%; */
     /* min-width: 2.5em; */
     /* max-width: 3em; */
     /* border: 0.15em solid white; */
     border: none;
     background-color: #4c4d53;
+    background: rgb(76, 77, 83);
+    background: linear-gradient(0deg, rgba(76, 77, 83, 0.15364617526698177) 0%, rgba(76, 77, 83, 0.7026657831101191) 15%, rgba(76, 77, 83, 1) 35%, rgba(76, 77, 83, 1) 70%, rgba(76, 77, 83, 0.6970635422137605) 85%, rgba(76, 77, 83, 0.14804393437062324) 100%);
+
     color: white;
     text-align: center;
     cursor: pointer;
@@ -227,6 +232,7 @@ h4 {
     text-align: center;
     font-weight: bold;
     /* z-index: 100; */
+
 }
 
 .submit-btn {
@@ -314,8 +320,9 @@ h4 {
     background-color: darkgray;
 }
 
+
 .current-page {
-    background-color: var(--nasa-blue);
+    /* background-color: var(--nasa-blue); */
     border: 1px solid white;
 }
 
@@ -352,7 +359,7 @@ h4 {
 .loading-btn {
     animation: loading 750ms linear infinite alternate;
     z-index: 999;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     box-sizing: border-box;
     height: 1.7em;
     width: 1.7em;
@@ -494,8 +501,8 @@ h4 {
         overflow-x: scroll;
         overflow-y: hidden;
         transition: 200ms;
-        min-width: auto;
-        max-width: 16em;
+        min-width: 15em;
+        max-width: 16.5em;
         /* min-width: 3em; */
         /* max-height: 2.5em; */
         align-self: center;
@@ -504,7 +511,8 @@ h4 {
         justify-content: baseline;
         touch-action: pan-x;
         scrollbar-width: auto;
-        margin-bottom: 0.5em;
+        /* margin-bottom: 0.5em; */
+        align-items: center;
     }
 
     */ .pagebtn-container::-webkit-scrollbar {
@@ -521,9 +529,19 @@ h4 {
 
 
     .pagebtn {
+        min-height: 2.2em;
+        min-width: 2.2em;
+        /* font-size: 0.6em; */
+        transition: 250ms;
+    }
+
+    .current-page {
+        max-height: 2.6em;
         min-height: 2.6em;
         min-width: 2.6em;
-        /* font-size: 0.6em; */
+        max-width: 2.6em;
+        transition: 250ms;
+        border: 1px solid white;
     }
 
     .height-auto {
@@ -567,9 +585,9 @@ h4 {
 
 
     .arrow img {
-        width: 3.8em;
-        top: 50%;
+        height: 3em;
     }
+
 
     .arrow-top {
         height: 3em;
@@ -625,6 +643,40 @@ h4 {
         grid-column-end: 3;
     }
 
+
+    .pagebtn-container {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        transition: 200ms;
+        min-width: auto;
+        max-width: 20em;
+        /* min-width: 3em; */
+        /* max-height: 2.5em; */
+        align-self: center;
+        display: flex;
+        flex-wrap: none;
+        justify-content: baseline;
+        touch-action: pan-x;
+        scrollbar-width: auto;
+        /* margin-bottom: 0.5em; */
+        align-items: center;
+    }
+
+    .pagebtn {
+        min-height: 2.2em;
+        min-width: 2.2em;
+        /* font-size: 0.6em; */
+        transition: 250ms;
+    }
+
+    .current-page {
+        max-height: 2.6em;
+        min-height: 2.6em;
+        min-width: 2.6em;
+        max-width: 2.6em;
+        transition: 250ms;
+    }
+
     .img-container {
         width: 100%;
         height: 10em;
@@ -640,10 +692,10 @@ h4 {
         height: 10em;
     }
 
-    .pagebtn {
-        min-width: 2.4em;
-        min-height: 2.4em;
-    }
+    /* .pagebtn {
+        min-width: 2.6em;
+        min-height: 2.6em;
+    } */
 
     .arrow-right {
         position: sticky;
@@ -666,8 +718,9 @@ h4 {
     }
 
     .arrow img {
-        width: 4em;
+        height: 3em;
     }
+
 
     .hidden {
         display: none;
@@ -698,10 +751,47 @@ h4 {
         height: 10em;
     }
 
+    .arrow img {
+        height: 3em;
+    }
+
 
     .grid-img {
         width: 100%;
         height: 10em;
+    }
+
+    .pagebtn-container {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        transition: 200ms;
+        min-width: auto;
+        max-width: 24em;
+        /* min-width: 3em; */
+        /* max-height: 2.5em; */
+        align-self: center;
+        display: flex;
+        flex-wrap: none;
+        justify-content: baseline;
+        touch-action: pan-x;
+        scrollbar-width: auto;
+        /* margin-bottom: 0.5em; */
+        align-items: center;
+    }
+
+    .pagebtn {
+        min-height: 2.2em;
+        min-width: 2.2em;
+        /* font-size: 0.6em; */
+        transition: 250ms;
+    }
+
+    .current-page {
+        max-height: 2.6em;
+        min-height: 2.6em;
+        min-width: 2.6em;
+        max-width: 2.6em;
+        transition: 250ms;
     }
 
     .loading-img {
@@ -747,6 +837,25 @@ h4 {
         height: 10em;
     }
 
+    .pagebtn-container {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        transition: 200ms;
+        min-width: auto;
+        max-width: 29em;
+        /* min-width: 3em; */
+        /* max-height: 2.5em; */
+        align-self: center;
+        display: flex;
+        flex-wrap: none;
+        justify-content: baseline;
+        touch-action: pan-x;
+        scrollbar-width: auto;
+        /* margin-bottom: 0.5em; */
+        align-items: center;
+    }
+
+
     .loading-img {
         min-width: 100%;
         height: 10em;
@@ -757,8 +866,18 @@ h4 {
     }
 
     .pagebtn {
-        min-width: 2.4em;
-        min-height: 2.4em;
+        min-height: 2.2em;
+        min-width: 2.2em;
+        /* font-size: 0.6em; */
+        transition: 250ms;
+    }
+
+    .current-page {
+        max-height: 2.6em;
+        min-height: 2.6em;
+        min-width: 2.6em;
+        max-width: 2.6em;
+        transition: 250ms;
     }
 
     .pagebtn-container {
@@ -767,6 +886,10 @@ h4 {
 
     .arrow {
         background-color: var(--nasa-blue);
+    }
+
+    .arrow img {
+        height: 3em;
     }
 
     .loading-sol {
