@@ -269,6 +269,30 @@ h4 {
     border: 2px solid white;
 }
 
+.solbtn-left-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.solbtn-right-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+@media (hover: hover) {
+    .solbtn-left-container:hover {
+        filter: opacity(75%);
+    }
+}
+
+@media (hover: hover) {
+    .solbtn-right-container:hover {
+        filter: opacity(75%);
+    }
+}
+
 @media (hover: hover) {
     .solbtn:hover {
         background-color: lightgray;
@@ -465,6 +489,8 @@ h4 {
     height: 100%;
     display: flex;
     flex-direction: column;
+    transition: all 200ms;
+    transform: translateY(-0px);
 }
 
 .arrow-up {
@@ -728,7 +754,7 @@ h4 {
         right: 0;
         height: 100dvh;
         background-color: var(--nasa-blue);
-        width: 5em;
+        width: 3.5em;
     }
 
     .arrow-left {
@@ -738,7 +764,7 @@ h4 {
         left: 0;
         height: 100dvh;
         background-color: var(--nasa-blue);
-        width: 5em;
+        width: 3.5em;
     }
 
     .arrow img {

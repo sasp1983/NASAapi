@@ -4,7 +4,7 @@ let arrowLeftBtn = document.querySelector('.arrow-left');
 let arrowRightBtn = document.querySelector('.arrow-right');
 let arrowTopLeftBtn = document.querySelector('.arrow-top-left');
 let arrowTopRightBtn = document.querySelector('.arrow-top-right');
-let solBtnLeft = document.querySelector('.solbtn-left');
+let solBtnLeft = document.querySelector('.solbtn-left-container');
 let solBtnRight = document.querySelector('.solbtn-right');
 let loadingBtn = document.querySelectorAll('.loading-btn');
 let loadingImg = document.querySelectorAll('.loading-img')
@@ -543,19 +543,19 @@ function centerCurrentPageBtn() {
                 pageBtnContainer.scrollTo({ left: btnPos, behavior: 'smooth' })
             }
         } else if (b.classList.contains('current-page') && media900px.matches) {
-            if (b.id >= 7) {
+            if (b.id >= 6) {
                 pageBtnContainer.scrollTo({ left: btnPos900, behavior: 'smooth' })
                 console.log('yes')
             }
         }
 
         else if (b.classList.contains('current-page') && media901px.matches) {
-            if (b.id >= 8) {
+            if (b.id >= 7) {
                 pageBtnContainer.scrollTo({ left: btnPos901, behavior: 'smooth' })
                 console.log('yes')
             }
         } else if (b.classList.contains('current-page') && media1280px.matches) {
-            if (b.id >= 9) {
+            if (b.id >= 8) {
                 pageBtnContainer.scrollTo({ left: btnPos1280, behavior: 'smooth' })
                 console.log('yesyes')
             }

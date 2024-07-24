@@ -20,7 +20,7 @@
         <div class="hide-btn"><img class="arrow-up" src="assets/arrow-up.png" alt=""></div>
     </div>
     <div class="menu-container">
-        <h1>NASA "Mars" Rover images</h1>       
+        <h1 class="h1">NASA "Mars" Rover images</h1>       
         <div class="loading-rover"></div>
         <div class="rover-container hidden">
         <label for="rovers"><b>Choose a rover</b></label>
@@ -41,13 +41,18 @@
                 <button class="submit-btn" id="submit-btn">Submit SOL date</button>
             </div>
             <div class="sol-date-btns hidden">
-                <button class="solbtn solbtn-left">
-                    < </button>
-                        <span style="font-weight: bold;font-size: 0.9em;">Previous Sol date</span>
+                
+                <div class="solbtn-left-container">
+                    <button class="solbtn solbtn-left">
+                        < </button>
+                            <span style="font-weight: bold;font-size: 0.9em;">Previous Sol date</span>
+                </div>
                         <span style="width:25px"></span>
-                        <span style="font-weight: bold;font-size: 0.9em;">Next Sol date</span>
-                        <button class=" solbtn solbtn-right">>
-                        </button>
+                        <div class="solbtn-right-container">
+                            <span style="font-weight: bold;font-size: 0.9em;">Next Sol date</span>
+                            <button class=" solbtn solbtn-right">>
+                            </button>
+                        </div>
             </div>
             <h4 class="page-number-text">Page Number</h4>
             <p class="no-imgs hidden">No images found on this SOL date</p>
@@ -237,9 +242,6 @@
         </div>   
     </div>
 
-   
-
-    <!-- <button class="solbtn overflow-btn hidden" id=" 200"></button> -->
     <div class="main">
         <div class="arrow arrow-left">
             <img class="arrow-left-img" src="assets/arrow-left.png" alt="">
