@@ -501,7 +501,7 @@ h4 {
         overflow-x: scroll;
         overflow-y: hidden;
         transition: 200ms;
-        min-width: 15em;
+        min-width: fit-content;
         max-width: 16.5em;
         /* min-width: 3em; */
         /* max-height: 2.5em; */
@@ -812,8 +812,9 @@ h4 {
 
     .main {
         position: relative;
-        max-width: 100%;
-        height: 100%;
+        /* min-width: 80%; */
+        width: 100%;
+        /* height: 100%; */
         display: flex;
         justify-content: center;
     }
@@ -893,8 +894,8 @@ h4 {
     }
 
     .loading-sol {
-        width: 75%;
-        height: 70px;
+        width: 400px;
+        height: 130px;
         animation: loading 750ms linear infinite alternate;
         margin: 5px;
         justify-self: center;

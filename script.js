@@ -272,7 +272,7 @@ async function fetchPageCount() {
         // hightlightLoop = setInterval(highlightButtons, 500)
 
         //hide page buttons to match the page count
-        function hideButtons() {
+        function hideExcessButtons() {
             buttons.forEach(p => {
                 if (p.innerText > pageCount) {
                     p.classList.add('hidden');
@@ -285,7 +285,22 @@ async function fetchPageCount() {
                 }
             })
         }
-        hideButtons();
+        //hide loading buttons to match the page count
+        hideExcessButtons();
+        function hideExcessLoadingButtons() {
+            loadingBtn.forEach(p => {
+                if (p.innerText > pageCount) {
+                    p.classList.add('hidden');
+                } else {
+                    p.classList.remove('hidden');
+                    // pageNumberText.classList.remove('hidden');
+                    // arrowTopLeftBtn.classList.remove('hidden')
+                    // arrowTopRightBtn.classList.remove('hidden')
+                    // showImages();
+                }
+            })
+        }
+        hideExcessLoadingButtons();
 
         function hideLoadingBtnAnimation() {
             loadingBtn.forEach(btn => {
@@ -409,8 +424,9 @@ async function fetchPageCount() {
             fetchPageCount();
             e.stopImmediatePropagation();
             pageNumber = 1;
-            // loadingAfterSolDateInput();
-            // addNavBtnLoadingAnimation();
+            loadingAfterSolDateInput();
+            loadingSol.classList.remove('hidden')
+            addNavBtnLoadingAnimation();
             // arrowTopLeftBtn.classList.add('hidden')
             // arrowTopRightBtn.classList.add('hidden')
             // showLoadingInput();
@@ -548,3 +564,6 @@ highlightButtons();
 //     console.log('offset', pageBtnContainer.offsetLeft)
 // })
 
+loadingBtn.forEach(l => {
+    l.textContent = '';
+})
