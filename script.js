@@ -410,7 +410,7 @@ async function fetchPageCount() {
             // arrowTopLeftBtn.classList.add('hidden');
             // arrowTopRightBtn.classList.add('hidden');
             // showLoadingInput();
-            // hideToRefreshImages();
+            hideToRefreshImages();
             pageBtnContainer.scrollTo({ left: 0 });
         })
 
@@ -424,13 +424,13 @@ async function fetchPageCount() {
             fetchPageCount();
             e.stopImmediatePropagation();
             pageNumber = 1;
-            loadingAfterSolDateInput();
-            loadingSol.classList.remove('hidden')
-            addNavBtnLoadingAnimation();
+            // loadingAfterSolDateInput();
+            // loadingSol.classList.remove('hidden')
+            // addNavBtnLoadingAnimation();
             // arrowTopLeftBtn.classList.add('hidden')
             // arrowTopRightBtn.classList.add('hidden')
             // showLoadingInput();
-            // hideToRefreshImages();
+            hideToRefreshImages();
             pageBtnContainer.scrollTo(0, 0);
         })
 
@@ -449,7 +449,7 @@ async function fetchPageCount() {
                 // arrowTopLeftBtn.classList.add('hidden')
                 // arrowTopRightBtn.classList.add('hidden')
                 // showLoadingInput();
-                // hideToRefreshImages();
+                hideToRefreshImages();
                 pageBtnContainer.scrollTo(0, 0);
 
                 // function earthDateInput() {
