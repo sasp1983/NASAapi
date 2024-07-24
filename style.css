@@ -130,7 +130,7 @@ h4 {
 .pagenumber-container {
     display: flex;
     flex-direction: row;
-    /* justify-content: space-between; */
+    justify-content: center;
     align-items: center;
     margin-bottom: 10px;
     margin-left: auto;
@@ -162,6 +162,7 @@ h4 {
     transition: ease-in-out 500ms;
     /* padding-bottom: 0.5em; */
     /* margin-bottom: 5px; */
+    align-self: center;
 }
 
 .pagebtn-container::-webkit-scrollbar {
@@ -177,6 +178,9 @@ h4 {
     background: var(--nasa-blue)
 }
 
+.prev {
+    align-items: baseline;
+}
 
 .main {
     display: flex;
@@ -650,7 +654,7 @@ h4 {
 
 
     .arrow-top {
-        height: 3em;
+        height: 2em;
     }
 
     .arrow-top img {
@@ -709,7 +713,7 @@ h4 {
         overflow-y: hidden;
         transition: 200ms;
         min-width: auto;
-        max-width: 21.7em;
+        max-width: 23.5em;
         /* min-width: 3em; */
         /* max-height: 2.5em; */
         align-self: center;
@@ -827,7 +831,7 @@ h4 {
         overflow-y: hidden;
         transition: 200ms;
         min-width: auto;
-        max-width: 25.4em;
+        max-width: 27em;
         /* min-width: 3em; */
         /* max-height: 2.5em; */
         align-self: center;
@@ -904,7 +908,7 @@ h4 {
         overflow-y: hidden;
         transition: 200ms;
         min-width: auto;
-        max-width: 29em;
+        max-width: 30.7em;
         /* min-width: 3em; */
         /* max-height: 2.5em; */
         align-self: center;
