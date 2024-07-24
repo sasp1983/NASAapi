@@ -10,7 +10,11 @@ let loadingBtn = document.querySelectorAll('.loading-btn');
 let loadingImg = document.querySelectorAll('.loading-img')
 let roverChoice = document.querySelector('#rovers')
 let loadingRover = document.querySelector('.loading-rover')
-let roverContainer = document.querySelector('.rover-container')
+let roverContainer = document.querySelector('.rover-container');
+let hideMenuBtn = document.querySelector('.hide-container');
+let menuContainer = document.querySelector('.menu-container');
+let hideText = document.querySelector('.hide-text');
+let arrowUp = document.querySelector('.arrow-up')
 
 let solDate = 1000;
 
@@ -469,7 +473,10 @@ async function fetchPageCount() {
             // console.log(rover)
             console.log(roverValue);
             centerCurrentPageBtn();
+            solDate = 0;
         })
+
+
 
     } catch (error) {
         console.log(error)
@@ -481,6 +488,20 @@ async function fetchPageCount() {
 
 fetchImages();
 fetchPageCount();
+
+hideMenuBtn.addEventListener('click', function () {
+    if (menuContainer.style.display != 'none') {
+        menuContainer.style.display = 'none';
+        hideText.innerText = 'show Menu';
+        arrowUp.style.transform = 'rotate(180deg)'
+
+    } else if (menuContainer.style.display = 'none') {
+        menuContainer.style.display = 'flex';
+        hideText.innerText = 'hide Menu';
+        arrowUp.style.transform = 'rotate(0deg)';
+    }
+
+})
 
 function showImages() {
     images.forEach(img => {
