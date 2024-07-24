@@ -470,6 +470,8 @@ h4 {
 .arrow-up {
     height: 1.5em;
     margin: 0;
+    transform-origin: center center;
+    transition: 100ms;
 }
 
 .hide-container {
@@ -481,6 +483,13 @@ h4 {
     cursor: pointer;
     font-size: 0.8em;
     display: inline-block;
+    opacity: 75%;
+}
+
+@media (hover: hover) {
+    .hide-container:hover {
+        opacity: 100%;
+    }
 }
 
 /* ------------------media queries ---------------*/
