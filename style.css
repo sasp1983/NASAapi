@@ -208,7 +208,6 @@ h4 {
     background-color: #4c4d53;
     background: rgb(76, 77, 83);
     background: linear-gradient(0deg, rgba(76, 77, 83, 0.15364617526698177) 0%, rgba(76, 77, 83, 0.7026657831101191) 15%, rgba(76, 77, 83, 1) 35%, rgba(76, 77, 83, 1) 70%, rgba(76, 77, 83, 0.6970635422137605) 85%, rgba(76, 77, 83, 0.14804393437062324) 100%);
-
     color: white;
     text-align: center;
     cursor: pointer;
@@ -224,66 +223,129 @@ h4 {
     text-align: center;
     font-weight: bold;
     /* z-index: 100; */
-
 }
 
+@media (hover: hover) {
+    .pagebtn:hover {
+        background-color: lightgray;
+        border: 1px solid white;
+    }
+}
+
+
 .submit-btn {
-    background-color: grey;
+    border-left: none;
+    border: 1px solid var(--nasa-blue);
+    background-color: #3d3d3d;
     color: white;
-    border: 1px solid white;
-    padding: 0.5em;
-    border-radius: 1em;
+    text-align: center;
     cursor: pointer;
-    margin: 0.5em;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-weight: bold;
-    font-size: 0.8em;
+    align-items: center;
+    user-select: none;
+    font-family: segoe UI;
+    text-align: center;
+    padding: 0.5em;
+    transition: 200ms;
+    margin-left: 0;
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+    border: 5px solid var(--nasa-blue);
+    font-size: 0.774em;
+}
+
+@media (hover: hover) {
+    .submit-btn:hover {
+        background-color: var(--nasa-blue);
+        /* opacity: 75%; */
+    }
+}
+
+
+.rover-container {
+    display: flex;
+    flex-direction: column;
 }
 
 .rovers {
     width: 10rem;
     align-self: center;
     margin: 0.6rem;
+    margin-bottom: 0.6em;
     padding: 0.5rem;
     border: 5px solid var(--nasa-blue);
     border-radius: 1em;
     background-color: #3d3d3d;
     color: white;
+    box-sizing: border-box;
+    cursor: pointer;
 }
 
 .solbtn {
-    min-height: 2.7em;
-    max-height: 4em;
-    border-radius: 50%;
-    min-width: 2.7em;
-    max-width: 2.5em;
-    /* max-width: 3em; */
-    background-color: grey;
+    min-height: 2.6em;
+    max-height: 2.6em;
+    min-width: 2.6em;
+    max-width: 2.6em;
+    border: none;
+    background-color: #26282f;
     color: white;
-    font-size: 0.6rem;
     text-align: center;
     cursor: pointer;
-    margin: 6px;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* visibility: hidden; */
-    box-sizing: border-box;
     user-select: none;
-    align-self: center;
-    border: 2px solid white;
+    font-family: segoe UI;
+    font-size: 0.65em;
+    text-align: center;
+    font-weight: bold;
+    transition: 200ms;
+    ;
 }
 
 .solbtn-left-container {
     display: flex;
     align-items: center;
     cursor: pointer;
+    border: 5px solid var(--nasa-blue);
+    border-right: 2.5px solid var(--nasa-blue);
+    text-wrap: nowrap;
+    border-top-left-radius: 1em;
+    border-bottom-left-radius: 1em;
+    padding-right: 0.3em;
+}
+
+
+.solbtn-left {
+    border-top-left-radius: 1em;
+    border-bottom-left-radius: 1em;
 }
 
 .solbtn-right-container {
     display: flex;
     align-items: center;
     cursor: pointer;
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+    border-left: 2.5px solid var(--nasa-blue);
+    border: 5px solid var(--nasa-blue);
+    text-wrap: nowrap;
+    padding-left: 0.3em;
+}
+
+.solbtn-right {
+    /* border-left: 5px solid var(--nasa-blue); */
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+
+}
+
+.sol-input-btn-container {
+    /* border: 5px solid var(--nasa-blue); */
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+    border-top-left-radius: 1em;
+    border-bottom-left-radius: 1em;
+    margin: 0.7em 0;
 }
 
 @media (hover: hover) {
@@ -301,6 +363,7 @@ h4 {
 @media (hover: hover) {
     .solbtn:hover {
         background-color: lightgray;
+        border: 1px solid white;
     }
 }
 
@@ -316,21 +379,14 @@ h4 {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-@media (hover: hover) {
-    .submit-btn:hover {
-        background-color: lightgrey;
-    }
+.sol-label {
+    margin: 0.5em;
 }
 
 .submit-btn:active {
     background-color: darkgray;
 }
 
-@media (hover: hover) {
-    .pagebtn:hover {
-        background-color: lightgray;
-    }
-}
 
 .pagebtn:active {
     background-color: darkgray;
@@ -346,12 +402,18 @@ h4 {
 #sol-date {
     width: 10rem;
     align-self: center;
-    margin: 0.6rem;
-    padding: 0.5rem;
-    border: 5px solid var(--nasa-blue);
-    border-radius: 1em;
+    padding: 0.5em;
+    /* border-radius: 1em; */
     background-color: #3d3d3d;
     color: white;
+    box-sizing: content-box;
+    /* border-bottom-right-radius: 0; */
+    /* border-top-right-radius: 0; */
+    /* border: none; */
+    /* border-right: 5px solid var(--nasa-blue); */
+    border: 5px solid var(--nasa-blue);
+    border-top-left-radius: 1em;
+    border-bottom-left-radius: 1em;
 }
 
 /* ::placeholder {
@@ -451,18 +513,6 @@ h4 {
     flex-grow: 0.3;
 }
 
-.earth-date {
-    width: 10rem;
-    align-self: center;
-    margin: 0.6rem;
-    padding: 0.5rem;
-    border: 5px solid var(--nasa-blue);
-    border-radius: 1em;
-    background-color: #3d3d3d;
-    color: white;
-}
-
-
 .date-switch-btn {
     background-color: grey;
     color: white;
@@ -492,7 +542,7 @@ h4 {
     right: 0;
     left: 0;
     width: 100%;
-    height: 18em;
+    min-height: 19em;
     display: flex;
     flex-direction: column;
     transition: all 200ms;
@@ -527,12 +577,23 @@ h4 {
 }
 
 
+
 /* ------------------media queries ---------------*/
 
 @media screen and (max-width:576px) {
 
     .body {
         position: relative;
+    }
+
+
+    .h1 {
+        font-size: 1.7em;
+    }
+
+    .menu-container {
+        min-height: 20.1em;
+
     }
 
     .main {
@@ -597,7 +658,10 @@ h4 {
         min-width: 2.2em;
         /* font-size: 0.6em; */
         transition: 250ms;
+    }
 
+    #sol-date {
+        width: 3rem;
     }
 
     .current-page {
@@ -685,6 +749,8 @@ h4 {
     .page-nav-text {
         display: none;
     }
+
+
 }
 
 @media screen and (min-width:576px) and (max-width:900px) {
@@ -741,6 +807,10 @@ h4 {
         min-width: 2.2em;
         /* font-size: 0.6em; */
         transition: 250ms;
+    }
+
+    #sol-date {
+        width: 4rem;
     }
 
     .current-page {
@@ -890,6 +960,10 @@ h4 {
     .arrow {
         background-color: var(--nasa-blue);
     }
+
+    #sol-date {
+        width: 3rem;
+    }
 }
 
 @media screen and (min-width:1280px) {
@@ -1020,6 +1094,10 @@ h4 {
     .loading-top-arrow {
         animation: loading 750ms linear infinite alternate;
     }
+
+    #sol-date {
+        width: 3rem;
+    }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -1030,5 +1108,6 @@ h4 {
     .arrow img {
         filter: invert();
     }
+
 
 }

@@ -474,6 +474,7 @@ async function fetchPageCount() {
             console.log(roverValue);
             centerCurrentPageBtn();
             solDate = 0;
+            solDateInput.placeholder = '';
         })
 
 
