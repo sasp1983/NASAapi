@@ -161,7 +161,7 @@ async function fetchPageCount() {
                 // pageBtnContainer.scrollLeft += 30;
                 fetchImages();
                 // window.scroll({ top: 0, behavior: 'smooth' });
-                // hideToRefreshImages();
+                hideToRefreshImages();
                 centerCurrentPageBtn();
                 highlightButtons();
                 e.stopImmediatePropagation();
@@ -176,7 +176,6 @@ async function fetchPageCount() {
                 fetchImages();
                 // window.scroll({ top: 0, behavior: 'smooth' });
                 hideToRefreshImages();
-                // centerCurrentButton576px();
                 centerCurrentPageBtn();
                 highlightButtons();
             }
@@ -191,7 +190,7 @@ async function fetchPageCount() {
                 pageNumber++;
                 fetchImages();
                 // fetchPageCount();
-                // hideToRefreshImages();
+                hideToRefreshImages();
                 centerCurrentPageBtn();
                 // clearInterval(hightlightLoop)
                 highlightButtons();
@@ -209,7 +208,7 @@ async function fetchPageCount() {
                 fetchImages();
                 // fetchPageCount();
                 // window.scroll({ top: 0, behavior: 'smooth' });
-                // hideToRefreshImages();
+                hideToRefreshImages();
                 centerCurrentPageBtn();
                 highlightButtons();
             }
@@ -258,7 +257,7 @@ async function fetchPageCount() {
                 fetchPageCount();
                 centerCurrentPageBtn()
                 highlightButtons()
-                // hideToRefreshImages();
+                hideToRefreshImages();
             })
         })
 
@@ -475,6 +474,7 @@ async function fetchPageCount() {
             centerCurrentPageBtn();
             solDate = 0;
             solDateInput.placeholder = '';
+            hideToRefreshImages();
         })
 
 
