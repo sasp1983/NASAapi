@@ -349,21 +349,24 @@ h4 {
 }
 
 @media (hover: hover) {
-    .solbtn-left-container:hover {
+    .solbtn-left-container:hover .solbtn {
         filter: opacity(75%);
+        background-color: var(--nasa-blue);
     }
 }
 
+
 @media (hover: hover) {
-    .solbtn-right-container:hover {
+    .solbtn-right-container:hover .solbtn {
         filter: opacity(75%);
+        background-color: var(--nasa-blue);
     }
+
 }
 
 @media (hover: hover) {
     .solbtn:hover {
-        background-color: lightgray;
-        border: 1px solid white;
+        background-color: var(--nasa-blue);
     }
 }
 
