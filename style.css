@@ -542,7 +542,7 @@ h4 {
     right: 0;
     left: 0;
     width: 100%;
-    min-height: 19em;
+    height: 20em;
     display: flex;
     flex-direction: column;
     transition: all 200ms;
@@ -592,7 +592,7 @@ h4 {
     }
 
     .menu-container {
-        min-height: 20.1em;
+        min-height: 0em;
 
     }
 
@@ -1063,7 +1063,7 @@ h4 {
 
 
     .loading-input {
-        width: 34%;
+        min-width: 5em;
         height: 40px;
         animation: loading 750ms linear infinite alternate;
         margin: 5px;
@@ -1115,7 +1115,12 @@ h4 {
         margin-right: auto;
         margin-left: auto;
     }
+
+    .hidden {
+        display: none;
+    }
 }
+
 
 @media (prefers-color-scheme: dark) {
     .rovers {

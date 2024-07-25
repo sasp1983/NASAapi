@@ -511,7 +511,7 @@ hideMenuBtn.addEventListener('click', function () {
         arrowUp.style.transform = 'rotate(-180deg)'
 
     } else if (menuContainer.style.height = '0em') {
-        menuContainer.style.height = '18em';
+        menuContainer.style.height = '20em';
         hideText.innerText = 'hide Menu';
         arrowUp.style.transform = 'rotate(0deg)';
     }
