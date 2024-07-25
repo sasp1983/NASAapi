@@ -1098,6 +1098,23 @@ h4 {
     #sol-date {
         width: 3rem;
     }
+
+    .rover-container {
+        display: flex;
+        max-width: fit-content;
+        margin-left: auto;
+        margin-right: auto
+    }
+
+    .rover {
+        display: block;
+    }
+
+    .sol-input-container {
+        max-width: fit-content;
+        margin-right: auto;
+        margin-left: auto;
+    }
 }
 
 @media (prefers-color-scheme: dark) {
