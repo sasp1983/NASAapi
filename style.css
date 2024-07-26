@@ -21,6 +21,24 @@ input[type=number]::-webkit-inner-spin-button {
     margin: 0;
 }
 
+.menu-container {
+    /* position: absolute; */
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 14em;
+    display: flex;
+    flex-direction: column;
+    transition: all 200ms;
+    z-index: 66;
+    overflow: hidden;
+}
+
+.hide {
+    height: 0em;
+}
+
 .picture-grid {
     display: grid;
     grid-template-columns: repeat(3, auto);
@@ -260,6 +278,7 @@ h4 {
     }
 }
 
+.rover-label {}
 
 .rover-container {
     display: flex;
@@ -279,6 +298,8 @@ h4 {
     box-sizing: border-box;
     cursor: pointer;
 }
+
+
 
 .solbtn {
     min-height: 2.6em;
@@ -398,7 +419,7 @@ h4 {
 
 .current-page {
     /* background-color: var(--nasa-blue); */
-    border: 1px solid white;
+    /* border: 1px solid white; */
     filter: brightness(2);
 }
 
@@ -539,19 +560,7 @@ h4 {
     }
 }
 
-.menu-container {
-    /* position: absolute; */
-    top: 0;
-    right: 0;
-    left: 0;
-    width: 100%;
-    height: 20em;
-    display: flex;
-    flex-direction: column;
-    transition: all 200ms;
-    z-index: 66;
-    overflow: hidden;
-}
+
 
 .arrow-up {
     height: 1.5em;
@@ -579,6 +588,10 @@ h4 {
     }
 }
 
+.page-number-text {
+    transition: 200ms;
+    opacity: 100%;
+}
 
 
 /* ------------------media queries ---------------*/
@@ -1102,37 +1115,19 @@ h4 {
         width: 3rem;
     }
 
-    .rover-container {
-        display: flex;
-        max-width: fit-content;
-        margin-left: auto;
-        margin-right: auto
-    }
-
-    .rover {
-        display: block;
-    }
-
-    .sol-input-container {
-        max-width: fit-content;
-        margin-right: auto;
-        margin-left: auto;
-    }
-
     .hidden {
         display: none;
     }
-}
+
+    @media (prefers-color-scheme: dark) {
+        .rovers {
+            border-color: var(--nasa-blue)
+        }
+
+        .arrow img {
+            filter: invert();
+        }
 
 
-@media (prefers-color-scheme: dark) {
-    .rovers {
-        border-color: var(--nasa-blue)
     }
-
-    .arrow img {
-        filter: invert();
-    }
-
-
 }

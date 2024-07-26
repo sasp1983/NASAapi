@@ -15,6 +15,7 @@ let hideMenuBtn = document.querySelector('.hide-container');
 let menuContainer = document.querySelector('.menu-container');
 let hideText = document.querySelector('.hide-text');
 let arrowUp = document.querySelector('.arrow-up')
+let h1 = document.querySelector('.h1');
 
 let solDate = 1000;
 
@@ -50,7 +51,6 @@ async function fetchImages() {
             throw new Error("ADJAS")
         }
         const data = await response.json();
-
         let imgArray = data.photos;
         // console.log('imgArray length:', imgArray.length);
 
@@ -58,32 +58,35 @@ async function fetchImages() {
         // console.log(data)
 
         //if no images found on sol date
-        if (imgArray.length === 0) {
-            try {
-                // const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
+        async function retryFetch() {
+            if (imgArray.length === 0) {
+                try {
+                    // const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
 
-                const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}`);
+                    const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}`);
 
 
-                if (!response.ok) {
-                    throw new Error("ADJAS")
+                    if (!response.ok) {
+                        throw new Error("ADJAS")
+                    }
+                    const data = await response.json();
+
+                    imgArray = data.photos;
+                    // console.log('imgArray length:', imgArray.length);
+                    if (imgArray.length === 0) {
+                        solDateWarning.classList.remove('hidden');
+                        pictureGrid.classList.add('hidden');
+                        solDateWarning.textContent = `No images found on Sol Date ${solDate}`;
+                    }
+                } catch (error) {
+                    console.error(error);
                 }
-                const data = await response.json();
-
-                imgArray = data.photos;
-                // console.log('imgArray length:', imgArray.length);
-                if (imgArray.length === 0) {
-                    solDateWarning.classList.remove('hidden');
-                    pictureGrid.classList.add('hidden');
-                    solDateWarning.textContent = `No images found on Sol Date ${solDate}`;
-                }
-            } catch (error) {
-                console.error(error);
+            } else {
+                solDateWarning.classList.add('hidden');
+                pictureGrid.classList.remove('hidden');
             }
-        } else {
-            solDateWarning.classList.add('hidden');
-            pictureGrid.classList.remove('hidden');
         }
+        retryFetch();
 
         //loop to fetch images
         for (i = 0; i < imgArray.length; i++) {
@@ -122,7 +125,7 @@ async function fetchImages() {
             });
         }
         showImages();
-        // hideImages();
+        hideImages();
 
         solDateInput.setAttribute('placeholder', `${solDate}`);
 
@@ -504,16 +507,21 @@ fetchPageCount();
 
 // })
 
+
 hideMenuBtn.addEventListener('click', function () {
     if (menuContainer.style.height != '0em') {
         menuContainer.style.height = '0em';
         hideText.innerText = 'show Menu';
         arrowUp.style.transform = 'rotate(-180deg)'
+        h1.style.display = 'none';
 
     } else if (menuContainer.style.height = '0em') {
-        menuContainer.style.height = '20em';
+        menuContainer.style.height = '14em';
+        menuContainer.style.minheight = 'fit-content'
         hideText.innerText = 'hide Menu';
         arrowUp.style.transform = 'rotate(0deg)';
+        h1.style.display = 'block';
+
     }
 })
 
