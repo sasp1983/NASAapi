@@ -1,4 +1,4 @@
-// fetch('https://images-api.nasa.gov')
+fetch('https://images-api.nasa.gov')
 
 let arrowLeftBtn = document.querySelector('.arrow-left');
 let arrowRightBtn = document.querySelector('.arrow-right');
@@ -43,9 +43,9 @@ rover = 'curiosity';
 
 async function fetchImages() {
     try {
-        // const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
+        const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
 
-        const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}`);
+        // const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}`);
 
         if (!response.ok) {
             throw new Error("ADJAS")
@@ -61,9 +61,9 @@ async function fetchImages() {
         async function retryFetch() {
             if (imgArray.length === 0) {
                 try {
-                    // const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
+                    const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
 
-                    const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}`);
+                    // const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}`);
 
 
                     if (!response.ok) {
@@ -138,9 +138,9 @@ async function fetchImages() {
 
 async function fetchPageCount() {
     try {
-        // const responseNoPages = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${solDate}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
+        const responseNoPages = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${solDate}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
 
-        const responseNoPages = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/photos?sol=${solDate}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
+        // const responseNoPages = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/photos?sol=${solDate}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
 
         if (!responseNoPages.ok) {
             throw new Error("ADJAS")
@@ -235,8 +235,6 @@ async function fetchPageCount() {
 
             buttons.forEach(b => {
                 if (!b.classList.contains('hidden')) {
-
-
                     // console.log('bPos:', b.id, bPos);
                     // console.log('boffsettLeft', bOffset)
                     if (b.classList.contains('current-page')) {
@@ -252,17 +250,30 @@ async function fetchPageCount() {
         })
 
         //make buttons go to page number
-        buttons.forEach(pagebtn => {
-            pagebtn.addEventListener('click', function (e) {
-                e.stopImmediatePropagation();
-                pageNumber = pagebtn.id;
+        // buttons.forEach(pagebtn => {
+        //     pagebtn.addEventListener('click', function (e) {
+        //         e.stopImmediatePropagation();
+        //         pageNumber = pagebtn.id;
+        //         fetchImages();
+        //         fetchPageCount();
+        //         centerCurrentPageBtn()
+        //         highlightButtons()
+        //         hideToRefreshImages();
+        //     })
+        // })
+
+        //make buttons go to page number (efficient method)
+        pageBtnContainer.addEventListener('click', function (e) {
+            if (e.target.className === 'pagebtn') {
+                pageNumber = e.target.id;
                 fetchImages();
                 fetchPageCount();
                 centerCurrentPageBtn()
                 highlightButtons()
                 hideToRefreshImages();
-            })
+            }
         })
+
 
         // //highlight page buttons
         // highlightButtons = () => {
@@ -291,22 +302,24 @@ async function fetchPageCount() {
                 }
             })
         }
+
         //hide loading buttons to match the page count
         hideExcessButtons();
-        function hideExcessLoadingButtons() {
-            loadingBtn.forEach(p => {
-                if (p.innerText > pageCount) {
-                    p.classList.add('hidden');
-                } else {
-                    p.classList.remove('hidden');
-                    // pageNumberText.classList.remove('hidden');
-                    // arrowTopLeftBtn.classList.remove('hidden')
-                    // arrowTopRightBtn.classList.remove('hidden')
-                    // showImages();
-                }
-            })
-        }
-        hideExcessLoadingButtons();
+
+        // function hideExcessLoadingButtons() {
+        //     loadingBtn.forEach(p => {
+        //         if (p.innerText > pageCount) {
+        //             p.classList.add('hidden');
+        //         } else {
+        //             p.classList.remove('hidden');
+        //             // pageNumberText.classList.remove('hidden');
+        //             // arrowTopLeftBtn.classList.remove('hidden')
+        //             // arrowTopRightBtn.classList.remove('hidden')
+        //             // showImages();
+        //         }
+        //     })
+        // }
+        // hideExcessLoadingButtons();
 
         function hideLoadingBtnAnimation() {
             loadingBtn.forEach(btn => {
@@ -373,17 +386,9 @@ async function fetchPageCount() {
             arrowLeftBtn.style.animation = '';
         }
 
-        // function hideOverflowButton() {
-        //     if (pageBtnContainer.children.classList.includes('pagebtn hidden') > 50) {
-        //         overflowButton.classList.remove('hidden');
-        //     }
-        //     else {
-        //         // overflowButton.classList.add('hidden');
-        //     }
-        // }
-        // hideOverflowButton();
 
         // function createButtons() {
+
         //     for (let p = 0; p < pageCount; p++) {
         //         let bu = document.createElement('button');
         //         bu.classList.add('pagebtn');
@@ -393,7 +398,6 @@ async function fetchPageCount() {
         //         console.log(p);
         //     }
         // }
-        // createButtons();
 
         // input dialog for Sol date
         solDateInput.addEventListener('change', function (e) {
@@ -426,8 +430,7 @@ async function fetchPageCount() {
             // console.log(e.target.value)
             solDateInput.setAttribute('placeholder'.replace(), `${solDate}`);
             solDateInput.value = ``;
-            fetchImages();
-            fetchPageCount();
+
             e.stopImmediatePropagation();
             pageNumber = 1;
             // loadingAfterSolDateInput();
@@ -438,6 +441,8 @@ async function fetchPageCount() {
             // showLoadingInput();
             hideToRefreshImages();
             pageBtnContainer.scrollTo(0, 0);
+            fetchImages();
+            fetchPageCount();
         })
 
         solBtnLeft.addEventListener('click', function (e) {
@@ -606,3 +611,4 @@ highlightButtons();
 loadingBtn.forEach(l => {
     l.textContent = '';
 })
+
