@@ -269,11 +269,12 @@ async function fetchPageCount() {
         pageBtnContainer.addEventListener('click', function (e) {
             if (e.target.className === 'pagebtn') {
                 pageNumber = e.target.id;
+                centerCurrentPageBtn();
                 fetchImages();
                 fetchPageCount();
-                centerCurrentPageBtn()
                 highlightButtons()
                 hideToRefreshImages();
+                console.log('sup')
             }
         })
 
@@ -558,36 +559,38 @@ function mediaQuery901() {
 
 function centerCurrentPageBtn() {
     buttons.forEach(b => {
-        let btnWidth = pageBtnContainer.scrollWidth / pageCount;
-        let btnWidths = btnWidth - (btnWidth * 6);
-        let btnWidths900 = btnWidth - (btnWidth * 8);
-        let btnWidths901 = btnWidth - (btnWidth * 9)
-        let btnWidths1280 = btnWidth - (btnWidth * 10)
-        let btnPos = btnWidth * pageNumber + btnWidths;
-        let btnPos900 = btnWidth * pageNumber + btnWidths900;
-        let btnPos901 = btnWidth * pageNumber + btnWidths901;
-        let btnPos1280 = btnWidth * pageNumber + btnWidths1280;
+        if (!b.classList.contains('hidden')) {
+            let btnWidth = pageBtnContainer.scrollWidth / pageCount;
+            let btnWidths = btnWidth - (btnWidth * 6);
+            let btnWidths900 = btnWidth - (btnWidth * 8);
+            let btnWidths901 = btnWidth - (btnWidth * 9)
+            let btnWidths1280 = btnWidth - (btnWidth * 10)
+            let btnPos = btnWidth * pageNumber + btnWidths;
+            let btnPos900 = btnWidth * pageNumber + btnWidths900;
+            let btnPos901 = btnWidth * pageNumber + btnWidths901;
+            let btnPos1280 = btnWidth * pageNumber + btnWidths1280;
 
-        if (b.classList.contains('current-page') && media576px.matches) {
-            if (b.id >= 5) {
-                pageBtnContainer.scrollTo({ left: btnPos, behavior: 'smooth' })
+            if (b.classList.contains('current-page') && media576px.matches) {
+                if (b.id >= 1) {
+                    pageBtnContainer.scrollTo({ left: btnPos, behavior: 'smooth' })
+                }
+            } else if (b.classList.contains('current-page') && media900px.matches) {
+                if (b.id >= 1) {
+                    pageBtnContainer.scrollTo({ left: btnPos900, behavior: 'smooth' })
+                    console.log('yes')
+                }
             }
-        } else if (b.classList.contains('current-page') && media900px.matches) {
-            if (b.id >= 7) {
-                pageBtnContainer.scrollTo({ left: btnPos900, behavior: 'smooth' })
-                console.log('yes')
-            }
-        }
 
-        else if (b.classList.contains('current-page') && media901px.matches) {
-            if (b.id >= 8) {
-                pageBtnContainer.scrollTo({ left: btnPos901, behavior: 'smooth' })
-                console.log('yes')
-            }
-        } else if (b.classList.contains('current-page') && media1280px.matches) {
-            if (b.id >= 9) {
-                pageBtnContainer.scrollTo({ left: btnPos1280, behavior: 'smooth' })
-                console.log('yesyes')
+            else if (b.classList.contains('current-page') && media901px.matches) {
+                if (b.id >= 1) {
+                    pageBtnContainer.scrollTo({ left: btnPos901, behavior: 'smooth' })
+                    console.log('yes')
+                }
+            } else if (b.classList.contains('current-page') && media1280px.matches) {
+                if (b.id >= 1) {
+                    pageBtnContainer.scrollTo({ left: btnPos1280, behavior: 'smooth' })
+                    console.log('yesyes')
+                }
             }
         }
     })
