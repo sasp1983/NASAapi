@@ -1,4 +1,4 @@
-fetch('https://images-api.nasa.gov')
+// fetch('https://images-api.nasa.gov')
 
 let arrowLeftBtn = document.querySelector('.arrow-left');
 let arrowRightBtn = document.querySelector('.arrow-right');
@@ -43,9 +43,9 @@ rover = 'curiosity';
 
 async function fetchImages() {
     try {
-        const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
+        // const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
 
-        // const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}`);
+        const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}`);
 
         if (!response.ok) {
             throw new Error("ADJAS")
@@ -58,35 +58,38 @@ async function fetchImages() {
         // console.log(data)
 
         //if no images found on sol date
-        async function retryFetch() {
-            if (imgArray.length === 0) {
-                try {
-                    const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
-
-                    // const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}`);
 
 
-                    if (!response.ok) {
-                        throw new Error("ADJAS")
-                    }
-                    const data = await response.json();
+        if (imgArray.length === 0) {
+            try {
+                // const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
 
-                    imgArray = data.photos;
-                    // console.log('imgArray length:', imgArray.length);
-                    if (imgArray.length === 0) {
-                        solDateWarning.classList.remove('hidden');
-                        pictureGrid.classList.add('hidden');
-                        solDateWarning.textContent = `No images found on Sol Date ${solDate}`;
-                    }
-                } catch (error) {
-                    console.error(error);
+                const response = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/photos?sol=${solDate}&page=${pageNumber}`);
+
+
+                if (!response.ok) {
+                    throw new Error("ADJAS")
                 }
-            } else {
-                solDateWarning.classList.add('hidden');
-                pictureGrid.classList.remove('hidden');
+                const data = await response.json();
+
+                imgArray = data.photos;
+                // console.log('imgArray length:', imgArray.length);
+                if (imgArray.length === 0) {
+                    solDateWarning.classList.remove('hidden');
+                    pictureGrid.classList.add('hidden');
+                    solDateWarning.textContent = `No images found on Sol Date ${solDate}`;
+                }
+            } catch (error) {
+                console.error(error);
             }
+        } else {
+            solDateWarning.classList.add('hidden');
+            pictureGrid.classList.remove('hidden');
+            showImages();
         }
-        retryFetch();
+
+
+
 
         //loop to fetch images
         for (i = 0; i < imgArray.length; i++) {
@@ -138,9 +141,9 @@ async function fetchImages() {
 
 async function fetchPageCount() {
     try {
-        const responseNoPages = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${solDate}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
+        // const responseNoPages = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${solDate}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
 
-        // const responseNoPages = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/photos?sol=${solDate}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
+        const responseNoPages = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/photos?sol=${solDate}&api_key=TDRKWxcci6VXt53Z5NocxnQTtTg6N2fsiSZOR8dQ`);
 
         if (!responseNoPages.ok) {
             throw new Error("ADJAS")
@@ -611,4 +614,3 @@ highlightButtons();
 loadingBtn.forEach(l => {
     l.textContent = '';
 })
-
