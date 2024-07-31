@@ -433,7 +433,7 @@ async function fetchPageCount() {
             solDate++;
             // console.log(e.target.value)
             solDateInput.setAttribute('placeholder'.replace(), `${solDate}`);
-            solDateInput.value = ``;
+            solDateInput.value = solDate;
 
             e.stopImmediatePropagation();
             pageNumber = 1;
@@ -454,7 +454,7 @@ async function fetchPageCount() {
             if (!solDate <= 0) {
                 solDate--;
                 solDateInput.setAttribute('placeholder'.replace(), `${solDate}`);
-                solDateInput.value = ``;
+                solDateInput.value = solDate;
                 fetchImages();
                 fetchPageCount();
                 e.stopImmediatePropagation();
