@@ -99,7 +99,8 @@ async function fetchImages() {
             imgLink[i].src = imgArray[i].img_src;
             imgLink[i].href = imgArray[i].img_src;
             images[i].onload = images[i].style.opacity = '100%';
-
+            console.log(data.photos[i].camera)
+            console.log(data.photos[i].earth_date)
             // //highlight page buttons
             // highlightButtons = () => {
             //     buttons.forEach(p => {
@@ -426,6 +427,10 @@ async function fetchPageCount() {
             // showLoadingInput();
             hideToRefreshImages();
             pageBtnContainer.scrollTo({ left: 0 });
+        })
+
+        solDateInput.addEventListener('focus', function () {
+            solDateInput.value = '';
         })
 
         solBtnRight.addEventListener('click', function (e) {
