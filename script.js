@@ -54,8 +54,9 @@ async function fetchImages() {
         let imgArray = data.photos;
         // console.log('imgArray length:', imgArray.length);
 
-        // console.log(response)
-        // console.log(data)
+        console.log(response)
+        console.log(data)
+
 
         //if no images found on sol date
 
@@ -99,8 +100,8 @@ async function fetchImages() {
             imgLink[i].src = imgArray[i].img_src;
             imgLink[i].href = imgArray[i].img_src;
             images[i].onload = images[i].style.opacity = '100%';
-            console.log(data.photos[i].camera)
-            console.log(data.photos[i].earth_date)
+            // console.log(data.photos[i].camera)
+            // console.log(data.photos[i].earth_date)
             // //highlight page buttons
             // highlightButtons = () => {
             //     buttons.forEach(p => {
@@ -157,6 +158,9 @@ async function fetchPageCount() {
         window.pageCount = Math.ceil(dataNoPages.photos.length / 25);
         // console.log('pageCount:', window.pageCount);
         pageNumberText.textContent = pageCount === 1 ? `Page (${pageCount})` : `Pages (${pageCount})`;
+
+
+        console.log(responseNoPages.headers)
 
         //page forward button 
         arrowRightBtn.addEventListener('click', function (e) {
@@ -563,44 +567,84 @@ function mediaQuery901() {
 }
 
 
+// function centerCurrentPageBtn() {
+//     buttons.forEach(b => {
+//         if (!b.classList.contains('hidden')) {
+//             let btnWidth = pageBtnContainer.scrollWidth / pageCount;
+//             let btnWidths = btnWidth - (btnWidth * 6);
+//             let btnWidths900 = btnWidth - (btnWidth * 8);
+//             let btnWidths901 = btnWidth - (btnWidth * 9)
+//             let btnWidths1280 = btnWidth - (btnWidth * 10)
+//             let btnPos = btnWidth * pageNumber + btnWidths;
+//             let btnPos900 = btnWidth * pageNumber + btnWidths900;
+//             let btnPos901 = btnWidth * pageNumber + btnWidths901;
+//             let btnPos1280 = btnWidth * pageNumber + btnWidths1280;
+
+//             if (b.classList.contains('current-page') && media576px.matches) {
+//                 if (b.id >= 1) {
+//                     pageBtnContainer.scrollTo({ left: btnPos, behavior: 'smooth' })
+//                 }
+//             } else if (b.classList.contains('current-page') && media900px.matches) {
+//                 if (b.id >= 1) {
+//                     pageBtnContainer.scrollTo({ left: btnPos900, behavior: 'smooth' })
+//                     console.log('yes')
+//                 }
+//             }
+
+//             else if (b.classList.contains('current-page') && media901px.matches) {
+//                 if (b.id >= 1) {
+//                     pageBtnContainer.scrollTo({ left: btnPos901, behavior: 'smooth' })
+//                     console.log('yes')
+//                 }
+//             } else if (b.classList.contains('current-page') && media1280px.matches) {
+//                 if (b.id >= 1) {
+//                     pageBtnContainer.scrollTo({ left: btnPos1280, behavior: 'smooth' })
+//                     console.log('yesyes')
+//                 }
+//             }
+//         }
+//     })
+// }
+
+//refactor by copilot
 function centerCurrentPageBtn() {
     buttons.forEach(b => {
         if (!b.classList.contains('hidden')) {
-            let btnWidth = pageBtnContainer.scrollWidth / pageCount;
-            let btnWidths = btnWidth - (btnWidth * 6);
-            let btnWidths900 = btnWidth - (btnWidth * 8);
-            let btnWidths901 = btnWidth - (btnWidth * 9)
-            let btnWidths1280 = btnWidth - (btnWidth * 10)
-            let btnPos = btnWidth * pageNumber + btnWidths;
-            let btnPos900 = btnWidth * pageNumber + btnWidths900;
-            let btnPos901 = btnWidth * pageNumber + btnWidths901;
-            let btnPos1280 = btnWidth * pageNumber + btnWidths1280;
+            const btnWidth = pageBtnContainer.scrollWidth / pageCount;
+            const btnWidths = {
+                default: btnWidth - (btnWidth * 6),
+                900: btnWidth - (btnWidth * 8),
+                901: btnWidth - (btnWidth * 9),
+                1280: btnWidth - (btnWidth * 10)
+            };
+            const btnPositions = {
+                default: btnWidth * pageNumber + btnWidths.default,
+                900: btnWidth * pageNumber + btnWidths['900'],
+                901: btnWidth * pageNumber + btnWidths['901'],
+                1280: btnWidth * pageNumber + btnWidths['1280']
+            };
 
-            if (b.classList.contains('current-page') && media576px.matches) {
-                if (b.id >= 1) {
-                    pageBtnContainer.scrollTo({ left: btnPos, behavior: 'smooth' })
+            if (b.classList.contains('current-page')) {
+                let btnPos;
+                if (media576px.matches) {
+                    btnPos = btnPositions.default;
+                } else if (media900px.matches) {
+                    btnPos = btnPositions['900'];
+                } else if (media901px.matches) {
+                    btnPos = btnPositions['901'];
+                } else if (media1280px.matches) {
+                    btnPos = btnPositions['1280'];
                 }
-            } else if (b.classList.contains('current-page') && media900px.matches) {
-                if (b.id >= 1) {
-                    pageBtnContainer.scrollTo({ left: btnPos900, behavior: 'smooth' })
-                    console.log('yes')
-                }
-            }
 
-            else if (b.classList.contains('current-page') && media901px.matches) {
-                if (b.id >= 1) {
-                    pageBtnContainer.scrollTo({ left: btnPos901, behavior: 'smooth' })
-                    console.log('yes')
-                }
-            } else if (b.classList.contains('current-page') && media1280px.matches) {
-                if (b.id >= 1) {
-                    pageBtnContainer.scrollTo({ left: btnPos1280, behavior: 'smooth' })
-                    console.log('yesyes')
+                if (b.id >= 1 && btnPos !== undefined) {
+                    pageBtnContainer.scrollTo({ left: btnPos, behavior: 'smooth' });
+                    console.log('yes');
                 }
             }
         }
-    })
+    });
 }
+
 
 //highlight page buttons
 
@@ -623,3 +667,5 @@ highlightButtons();
 loadingBtn.forEach(l => {
     l.textContent = '';
 })
+
+console.log(window.location)

@@ -235,6 +235,7 @@ h4 {
     align-items: center;
     /* visibility: hidden; */
     box-sizing: border-box;
+    -webkit-user-select: none;
     user-select: none;
     font-family: segoe UI;
     font-size: 0.65em;
@@ -259,6 +260,7 @@ h4 {
     text-align: center;
     cursor: pointer;
     align-items: center;
+    -webkit-user-select: none;
     user-select: none;
     font-family: segoe UI;
     text-align: center;
@@ -314,6 +316,7 @@ h4 {
     display: flex;
     justify-content: center;
     align-items: center;
+    -webkit-user-select: none;
     user-select: none;
     font-family: segoe UI;
     font-size: 0.65em;
@@ -816,7 +819,7 @@ h4 {
     }
 
     .picture-grid {
-        display: -ms-inline-grid;
+        display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 3px;
         width: 100%;
@@ -1113,6 +1116,8 @@ h4 {
         width: 100%;
         height: fit-content;
         box-sizing: border-box;
+        max-width: 1280px;
+        margin-bottom: 0;
     }
 
     .img-container {
